@@ -52,9 +52,9 @@ export default function ProfessionalInfo() {
                         </div>
                     </div>
                 </div>
-                <div className="flex gap-2 ">
+                <div className="flex gap-4 ">
                     <Link className="bg-gray-500 w-48 h-14 rounded-xl flex items-center justify-center font-bold text-[16px] leading-[140%] tracking-[0.2px] text-white " to={"/pinfo"}>Previous</Link>
-                    <Link className="bg-blue-600 w-48 h-14 rounded-xl flex items-center justify-center font-bold text-[16px] leading-[140%] tracking-[0.2px] text-white mb-16" to={"/professionalinfo"}>Save & Next</Link>
+                    <Link className="bg-blue-600 w-48 h-14 rounded-xl flex items-center justify-center font-bold text-[16px] leading-[140%] tracking-[0.2px] text-white mb-16" to={"/social"}>Save & Next</Link>
                 </div>
 
             </div>

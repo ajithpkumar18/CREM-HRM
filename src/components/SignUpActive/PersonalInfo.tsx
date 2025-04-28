@@ -30,8 +30,8 @@ export default function PInfo() {
                 </div>
             </div>
             <div className="  w-10/12 mx-auto flex flex-col justify-between">
-                <div className="flex justify-between gap-6">
-                    <div className=" w-8/12 flex gap-16">
+                <div className="flex justify-between gap-16">
+                    <div className=" w-9/12 flex gap-16">
                         <div className="flex flex-col gap-10 ">
                             <ActiveInputs type="text" name="Full Name" placeholder="Enter Your Full Name" />
                             <ActiveInputs type="text" name="Date of Birth" placeholder="Enter Your Date Of Birth" />

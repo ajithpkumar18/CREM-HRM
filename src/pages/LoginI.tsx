@@ -1,5 +1,5 @@
 import { useState } from "react"
-import InputI from "../components/ui/InputI"
+import InputI from "../components/ui/Common/InputI"
 
 export default function LoginI() {
 
