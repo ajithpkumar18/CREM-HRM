@@ -1,4 +1,4 @@
-import { SidebarItem } from "./SideBarItem"
+import { SidebarItem } from "/home/user/CREM-HRM/src/components/ui/Sidebar/SideBarItem.tsx"
 
 const items = [
     {
@@ -53,7 +53,7 @@ const items = [
     }
 ]
 
-export const Sidebar = () => {
+const Sidebar = () => {
     return (<div className="top-0 left-0 w-96 ">
         <div className="m-4 rounded-xl border border-r-slate-200 bg-gray-200">
             <div className="flex p-6 items-center gap-3">
@@ -66,10 +66,12 @@ export const Sidebar = () => {
             </div>
             <div className=" h-screen  p-6 items-center gap-3">
                 {items.map((item) => (
-                    <SidebarItem text={item.text} activeicon={item.activelogo as any} inactiveicon={item.inactivelogo as any} />
+                    <SidebarItem key={item.text} text={item.text} activeicon={item.activelogo as any} inactiveicon={item.inactivelogo as any} />
                 ))}
             </div>
         </div>
     </div>
     )
 }
+
+export default Sidebar;

@@ -1,11 +1,28 @@
 
-import HoliTable from "../../components/ui/Holidays/HoliTable";
-import Navbar from "../../components/ui/Navbar";
-import { Sidebar } from "../../components/ui/Sidebar/Sidebar";
+import HoliTable from '../../components/ui/Holidays/HoliTable';
+import Navbar from '../../components/ui/Navbar';
+import Sidebar from '../../components/ui/Sidebar/Sidebar';
+import { useState } from 'react';
+import AddHolidayModal from '../../components/ui/AddHolidayModal';
 
 export default function Holidays() {
+    const [showModal, setShowModal] = useState(false);
+
+    const handleOpenModal = () => {
+        setShowModal(true);
+    };
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
     return (
         <div className="flex">
+            {showModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50" onClick={handleCloseModal}>
+                    <div onClick={(e) => e.stopPropagation()}>
+                        <AddHolidayModal onClose={handleCloseModal} />
+                    </div>
+                </div>
+            )}
             <Sidebar />
             <div className="w-full">
                 <Navbar />
@@ -16,10 +33,10 @@ export default function Holidays() {
                             <input className="w-full outline-none" type="text" placeholder="Search" />
                         </div>
                         <div className="flex w-5/12 justify-around h-[50px] gap-5">
-                            <div className="cursor-pointer bg-purple-primary-500 rounded-[10px] text-white flex gap-[10px] p-5 h-25 w-[220px] items-center ">
+                            <div onClick={handleOpenModal} className="cursor-pointer bg-purple-primary-500 rounded-[10px] text-white flex gap-[10px] p-5 h-25 w-[220px] items-center ">
                                 <img className="h-6 w-6" src="/src/assets/plus.svg" alt="" />
-                                <p className="font-light text-[16px] leading-[24px] ">Add New Lead</p>
-                            </div>
+                                <p className="font-light text-[16px] leading-[24px] ">Add New Holiday</p>
+                           </div>
                             <div className="cursor-pointer border bg-white rounded-[10px] text-black flex gap-[10px] p-5 h-25 w-[180px] items-center ">
                                 <img className="h-6 w-6" src="/src/assets/plus.svg" alt="" />
                                 <p className="font-light text-[16px] leading-[24px] ">Upload Bulk</p>
@@ -37,3 +54,4 @@ export default function Holidays() {
         </div>
     )
 }
+

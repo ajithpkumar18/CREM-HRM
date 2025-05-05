@@ -2,7 +2,7 @@
 import Dropdown from "../../components/ui/Common/Dropdown";
 import Toggle from "../../components/ui/Common/Toggle";
 import Navbar from "../../components/ui/Navbar";
-import { Sidebar } from "../../components/ui/Sidebar/Sidebar";
+import Sidebar from "../../components/ui/Sidebar/Sidebar";
 
 export default function Settings() {
     return (
