@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 const data = [
     { name: 'On Half day', value: 80 },
@@ -6,14 +6,14 @@ const data = [
     { name: 'On leave', value: 80 },
 ];
 
-const COLORS = ['#FFA500', '#00C49F', '#FF5C5C'];  // Orange, Green, Red
+const COLORS = ['#FF8042', '#00BFA5', '#42A5F5'];  // Orange/Red, Green/Teal, Blue
 
 export default function PieCharts() {
     return (
         <div className="w-full h-full max-w-sm p-4 border rounded-lg shadow-md">
             <div className="flex justify-between items-center mb-4">
                 <h2 className="font-bold text-lg">Attendance Overview</h2>
-                <span className="text-gray-500 text-sm">All time ▼</span>
+                <span className="text-gray-500 text-sm hover:text-gray-700 cursor-pointer">All time ▼</span>
             </div>
 
             <ResponsiveContainer width="100%" height={250}>
@@ -42,7 +42,7 @@ export default function PieCharts() {
                                 className="inline-block w-3 h-3 rounded-full mr-2"
                                 style={{ backgroundColor: COLORS[index] }}
                             ></span>
-                            <span>{entry.name}</span>
+                            <span >{entry.name}</span>
                         </div>
                         <span className="font-bold">{entry.value}</span>
                     </div>

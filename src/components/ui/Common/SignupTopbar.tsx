@@ -1,4 +1,4 @@
-import { redirect } from "react-router"
+import { redirect } from "react-router-dom"
 import Crumb from "./Crumb"
 
 export default function SignupTopbar() {
