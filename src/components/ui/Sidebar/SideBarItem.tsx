@@ -6,13 +6,15 @@ export const SidebarItem = ({ activeicon, inactiveicon, text }: { activeicon?: s
     const [active, setActive] = useState(false)
     const current = useLocation();
     const path = current.pathname.toString().toLowerCase();
+    console.log(path)
     // console.log(typeof (path))
     // console.log(path.length)
     // console.log(path.slice(1, path.length) == text?.toLowerCase())
-    // console.log(text)
+    let val: any = text?.toLowerCase().split(" ")
+    val = val[0] && val[1] ? val[0] + val[1] : val[0];
     // console.log(typeof (text))
     useEffect(() => {
-        if (path.slice(1, path.length) == text?.toLowerCase()) setActive(true)
+        if (path.slice(1, path.length) == val?.toLowerCase()) setActive(true)
     }, [])
 
     return (

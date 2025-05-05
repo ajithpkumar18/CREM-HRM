@@ -15,6 +15,7 @@ export default {
         'primary-blue': '#2563EB',
         'secondary-blue': '#64748B',
         'blue-400': '2563EB',
+        'purple-primary-100': '#7152F31A',
         'purple-primary-500': '#7152F3',
         'dark-500': '#16151C'
       }

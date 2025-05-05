@@ -11,11 +11,11 @@ export default function Navbar() {
                     <img className="w-6 h-6" src="/src/assets/dashboard/Navbar/search.svg" alt="" />
                     <input className="w-full outline-none" type="text" placeholder="Search" />
                 </div>
-                <div className="border h-[50px] w-[50px] rounded-[10px] flex items-center bg-nav-gray-500 ">
+                <div className="border h-[50px] w-[50px] rounded-[10px] flex items-center bg-gray-200 cursor-pointer">
                     <img className="mx-auto w-6 h-6" src="/src/assets/dashboard/Navbar/bell_notification.svg" alt="" />
                 </div>
-                <div className="border w-[184px] gap-1 flex items-center justify-between px-2 rounded-lg">
-                    <img className="w-10 h-10 rounded-lg" src="/src/assets/images/profile.png" alt="" />
+                <div className="border w-[184px] gap-1 flex items-center justify-between p-1 rounded-lg">
+                    <img className="w-10 h-10 rounded-lg " src="/src/assets/images/profile.png" alt="" />
                     <div className="my-auto">
                         <p className="font-semibold text-[16px] leading-6 text-dark-500">Robert Allen</p>
                         <p className="font-light text-[12px] leading-[18px] text-nav-gray-500">HR Manager</p>

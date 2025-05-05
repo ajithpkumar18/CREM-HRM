@@ -1,5 +1,6 @@
 import { useState } from "react"
 import InputI from "../components/ui/Common/InputI"
+import { Link } from "react-router";
 
 export default function LoginI() {
 
@@ -40,11 +41,11 @@ export default function LoginI() {
                         & Conditions </span> and our <span className="text-black font-semibold text-[12px] leading-[160%]"> Privacy Policy </span>
                 </p>
             </div>
-            <button className="flex justify-center items-center p-2 gap-2 absolute w-[404px] h-[56px] left-0 top-[386px] bg-blue-600 rounded-2xl">
+            <Link to={"/personal"} className="flex justify-center items-center p-2 gap-2 absolute w-[404px] h-[56px] left-0 top-[386px] bg-blue-600 rounded-2xl">
                 <p className="w-16 h-5 font-bold text-[16px] leading-[140%] tracking-[0.2px] text-white">
                     Sign Up
                 </p>
-            </button>
+            </Link>
             <div className="flex items-center p-0 gap-4 absolute w-[404px] h-5 left-0 top-[475px]">
                 <p className="w-[143px] h-0 border border-custom-grey-200"></p>
                 <p className="w-[86px] h-5 font-normal text-[12px] leading-[160%] text-center text-custom-grey-500">Or sign up with</p>

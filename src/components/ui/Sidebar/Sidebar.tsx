@@ -54,8 +54,8 @@ const items = [
 ]
 
 export const Sidebar = () => {
-    return (<div className="top-0 left-0 w-96">
-        <div className="m-4 rounded-xl border border-r-slate-200">
+    return (<div className="top-0 left-0 w-96 ">
+        <div className="m-4 rounded-xl border border-r-slate-200 bg-gray-200">
             <div className="flex p-6 items-center gap-3">
                 <div className="text-purple-600">
                     <img src="/src/assets/Logo.svg" alt="" />
