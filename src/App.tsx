@@ -1,7 +1,7 @@
 
 import { Route, Routes, Navigate } from 'react-router-dom'
 import './App.css'
-import { LoginPage } from './pages/LoginI'
+import { SignUpPage } from './pages/SignUp'
 import PInfo from './components/SignUpActive/PersonalInfo'
 import AllLeads from './pages/dashboard/AllLeads'
 import Attendance from './pages/dashboard/Attendance'
@@ -12,13 +12,14 @@ import ProfessionalInfo from './components/SignUpActive/ProfessionalInfo'
 import SocialProfile from './components/SignUpActive/SocialProfile'
 import Contact from './components/SignUpActive/Contact'
 import Dashboard from './pages/dashboard/Dashboard';
+import Messenger from './pages/dashboard/Messenger';
 
 function App() {
   return (
     
     <Routes>
-      <Route path='/' element={<Navigate to="/login2" />} />
-      <Route path='/login2' element={<LoginPage />} />
+      <Route path='/' element={<Navigate to="/signup" />} />
+      <Route path='/signup' element={<SignUpPage />} />
       <Route path='/personal' element={<PInfo />} />
       <Route path='/pinfo' element={<PInfo />} />
       <Route path='/professionalinfo' element={<ProfessionalInfo />} />
@@ -29,7 +30,8 @@ function App() {
       <Route path='/leads' element={<AllLeads />} />
       <Route path='/attendance' element={<Attendance />} />
       <Route path='/holidays' element={<Holidays />} />
-      <Route path='/settings' element={<Settings />} />
+      <Route path='/setting' element={<Settings />} />
+      <Route path='/messenger' element={<Messenger />} />
     </Routes>
   )
     
