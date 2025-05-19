@@ -9,7 +9,7 @@ import React from 'react'
 export default function Dashboard() {
     return (
         <div className="flex">
-            <Sidebar className="w-[280px]"/>
+            <Sidebar />
             <div className="w-full p-6">
                 <Navbar />
                 {/* Main Content Container */}

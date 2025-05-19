@@ -13,6 +13,7 @@ import SocialProfile from './components/SignUpActive/SocialProfile'
 import Contact from './components/SignUpActive/Contact'
 import Dashboard from './pages/dashboard/Dashboard';
 import Messenger from './pages/dashboard/Messenger';
+import Leaves from './pages/dashboard/Leaves';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
       <Route path='/holidays' element={<Holidays />} />
       <Route path='/setting' element={<Settings />} />
       <Route path='/messenger' element={<Messenger />} />
+      <Route path='/leaves' element={<Leaves />} />
     </Routes>
   )
     
