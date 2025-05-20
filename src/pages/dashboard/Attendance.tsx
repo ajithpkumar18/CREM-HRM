@@ -2,7 +2,7 @@ import { useState } from "react";
 import AttendTable from "../../components/ui/Attendance/AttendTable";
 import EditCheckInModal from "../../components/ui/Attendance/EditCheckInModal";
 import Navbar from "../../components/ui/Navbar";
-import Sidebar from "../../components/ui/Sidebar/Sidebar";
+import { Sidebar } from "../../components/ui/Sidebar/Sidebar";
 
 interface Employee {
     src: string;
