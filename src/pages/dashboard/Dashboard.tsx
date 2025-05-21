@@ -9,7 +9,7 @@ export default function Dashboard() {
     return (
         <div className="flex">
             <Sidebar />
-            <div className="w-full">
+            <div className="w-full p-6">
                 <Navbar />
                 <div className="flex border rounded-xl h-[345px] justify-evenly px-7 gap-30 mb-5 mr-7">
                     <CompanyOverview />

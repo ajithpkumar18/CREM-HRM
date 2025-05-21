@@ -22,8 +22,9 @@ export const SidebarItem = ({
   };
   return (
     <div
-      className={`flex w-full ${isActive ? "border-l-2 border-purple-primary-500" : ""
-        }  px-5 py-2 mb-4 gap-4 hover:bg-gray-200 text-gray-500 cursor-pointer`}
+      className={`flex w-full items-center ${
+        isActive ? "border-l-2 border-purple-primary-500" : ""
+      }  px-5 py-2 mb-4 gap-4 hover:bg-gray-200 text-gray-500 cursor-pointer`}
       onClick={handleClick}
     >
       {isActive ? (

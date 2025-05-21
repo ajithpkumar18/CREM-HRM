@@ -58,8 +58,10 @@ interface SidebarProps {
     className?: string;
 }
 
-export const Sidebar = () => {
-    return (<div className="top-0 left-0 w-96 ">
+const Sidebar: React.FC<SidebarProps> = ({ className }) => {
+    const location = useLocation();
+    return (
+    <div className={`top-0 left-0 w-96 ${className || ''}`}>
         <div className="m-4 rounded-xl border border-r-slate-200 bg-gray-200">
             <div className="flex p-6 items-center gap-3">
                 <div className="text-purple-600">
