@@ -11,11 +11,11 @@ export const SidebarItem = ({
   activeicon?: string;
   inactiveicon?: string;
   text?: string;
-  currentPath:string,
-  path:string
+  currentPath: string,
+  path: string
 }) => {
   const isActive = currentPath === path;
-  
+
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(path);

@@ -6,7 +6,7 @@ const data = [
     { name: 'On leave', value: 20 },
 ];
 
-const COLORS = ['#FF8042', '#00BFA5', '#42A5F5'];  // Orange/Red, Green/Teal, Blue
+const COLORS = ['#FFA500', '#00C49F', '#FF5C5C'];  // Orange, Green, Red
 
 export default function PieCharts() {
     return (
@@ -31,18 +31,18 @@ export default function PieCharts() {
                     </ResponsiveContainer>
                 </div>
                 <div className=" space-y-2">
-                {data.map((entry, index) => (
-                    <div key={index} className="flex items-center justify-between">
-                        <div className="flex items-center">
-                            <span
-                                className="inline-block w-3 h-3 rounded-full mr-2"
-                                style={{ backgroundColor: COLORS[index] }}
-                            ></span>
-                            <span >{entry.name}</span>
+                    {data.map((entry, index) => (
+                        <div key={index} className="flex items-center justify-between">
+                            <div className="flex items-center">
+                                <span
+                                    className="inline-block w-3 h-3 rounded-full mr-2"
+                                    style={{ backgroundColor: COLORS[index] }}
+                                ></span>
+                                <span >{entry.name}</span>
+                            </div>
+                            <span className="font-bold">{entry.value}</span>
                         </div>
-                        <span className="font-bold">{entry.value}</span>
-                    </div>
-                ))}
+                    ))}
                 </div>
             </div>
 

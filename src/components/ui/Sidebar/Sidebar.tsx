@@ -1,6 +1,4 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import {SidebarItem} from './SideBarItem';
+import { SidebarItem } from "./SideBarItem"
 
 const items = [
     {
@@ -12,68 +10,54 @@ const items = [
     {
         activelogo: "/src/assets/dashboard/sidebar/allemployees_blue.svg",
         text: "All Employees",
-        inactivelogo: "/src/assets/dashboard/sidebar/allemployees.svg",
-        path:"/employees"
+        inactivelogo: "/src/assets/dashboard/sidebar/allemployees.svg"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/allleads_blue.svg",
         text: "All Leads",
-        inactivelogo: "/src/assets/dashboard/sidebar/allleads.svg",
-        path:"/leads"
+        inactivelogo: "/src/assets/dashboard/sidebar/allleads.svg"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/attendance_blue.svg",
         text: "Attendance",
-        inactivelogo: "/src/assets/dashboard/sidebar/attendance.svg",
-        path:"/attendance"
+        inactivelogo: "/src/assets/dashboard/sidebar/attendance.svg"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/payroll_blue.svg",
         text: "Payroll",
-        inactivelogo: "/src/assets/dashboard/sidebar/payroll.svg",
-        path:"/payroll"
+        inactivelogo: "/src/assets/dashboard/sidebar/payroll.svg"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/jobs_blue.svg",
         text: "Jobs",
-        inactivelogo: "/src/assets/dashboard/sidebar/jobs.svg",
-        path:"/jobs"
+        inactivelogo: "/src/assets/dashboard/sidebar/jobs.svg"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/candidates_blue.svg",
         text: "Candidates",
-        inactivelogo: "/src/assets/dashboard/sidebar/candidates.svg",
-        path:"/candidates"
+        inactivelogo: "/src/assets/dashboard/sidebar/candidates.svg"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/leaves_blue.svg",
         text: "Leaves",
-        inactivelogo: "/src/assets/dashboard/sidebar/leaves.svg",
-        path:"/leaves"
+        inactivelogo: "/src/assets/dashboard/sidebar/leaves.svg"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/holidays_blue.svg",
         text: "Holidays",
-        inactivelogo: "/src/assets/dashboard/sidebar/holidays.svg",
-        path:"/holidays"
-    },
-        {
-        activelogo: "/src/assets/dashboard/sidebar/messenger_blue.svg",
-        text: "Messenger",
-        inactivelogo: "/src/assets/dashboard/sidebar/messenger_blue.svg",
-        path:"/messenger"
+        inactivelogo: "/src/assets/dashboard/sidebar/holidays.svg"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/setting_blue.svg",
         text: "Setting",
-        inactivelogo: "/src/assets/dashboard/sidebar/setting.svg",
-        path:"/setting"
+        inactivelogo: "/src/assets/dashboard/sidebar/setting.svg"
     }
 ]
 
 interface SidebarProps {
-  className?: string;
+    className?: string;
 }
+
 const Sidebar: React.FC<SidebarProps> = ({ className }) => {
     const location = useLocation();
     return (
@@ -89,12 +73,10 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
             </div>
             <div className=" h-screen  p-6 items-center gap-3">
                 {items.map((item) => (
-                    <SidebarItem key={item.text} text={item.text} activeicon={item.activelogo as any} inactiveicon={item.inactivelogo as any} currentPath={location.pathname} path={item.path}/>
+                    <SidebarItem text={item.text} activeicon={item.activelogo as any} inactiveicon={item.inactivelogo as any} />
                 ))}
             </div>
         </div>
-    </div>);
-};
-
-
-export default Sidebar;
+    </div>
+    )
+}
