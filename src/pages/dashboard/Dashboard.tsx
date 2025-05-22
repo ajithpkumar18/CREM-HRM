@@ -2,6 +2,7 @@ import AttendanceOverview from "../../components/ui/Dashboard/AttendanceOverview
 import CompanyOverview from "../../components/ui/Dashboard/CompanyOverview";
 import Employees from "../../components/ui/Dashboard/Employees";
 import TeamPerformance from "../../components/ui/Dashboard/TeamPerformance";
+import PieCharts from '../../components/ui/Common/PieCharts'
 import Navbar from "../../components/ui/Navbar";
 import { Sidebar } from "../../components/ui/Sidebar/Sidebar";
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BiSearch } from 'react-icons/bi';
-import Sidebar from '../../components/ui/Sidebar/Sidebar';
+import {Sidebar} from '../../components/ui/Sidebar/Sidebar';
 import Navbar from '../../components/ui/Navbar';
 import user from "../../assets/user.png"
 import { EmployeeVacation, EmployeeVacationData, EmployeeLeaveSummary, EmployeeLeaveData } from '../../data/leaveData';

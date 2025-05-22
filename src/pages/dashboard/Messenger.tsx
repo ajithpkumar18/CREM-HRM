@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Sidebar from '/home/user/CREM-HRM/src/components/ui/Sidebar/Sidebar.tsx'; // Assuming Sidebar component exists
 import Navbar from '/home/user/CREM-HRM/src/components/ui/Navbar.tsx'; // Assuming Navbar component exists
+import { Sidebar } from '../../components/ui/Sidebar/Sidebar';
 import ChatWindow from '../../components/ui/Messenger/ChatWindow';
 import profileImage from '/src/assets/images/profile.png';
 

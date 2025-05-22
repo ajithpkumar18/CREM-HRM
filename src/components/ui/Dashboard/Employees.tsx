@@ -1,13 +1,13 @@
 import { Link } from "react-router";
 const employee = [
     {
-        src: "/noavatar.png", name: "John Doe", desgn: "Team Lead - Design", type: "Office", status: "Available"
+        id: 1, src: "/noavatar.png", name: "John Doe", desgn: "Team Lead - Design", type: "Office", status: "Available"
     },
-    { src: "/noavatar.png", name: "John Doe", desgn: "Team Lead - Design", type: "Office", status: "Available" },
+    { id: 2, src: "/noavatar.png", name: "John Doe", desgn: "Team Lead - Design", type: "Office", status: "Available" },
 
-    { src: "/noavatar.png", name: "John Doe", desgn: "Team Lead - Design", type: "Office", status: "on leave" },
-    { src: "/noavatar.png", name: "John Doe", desgn: "Team Lead - Design", type: "Office", status: "Available" },
-    { src: "/noavatar.png", name: "John Doe", desgn: "Team Lead - Design", type: "Office", status: "Available" }
+    { id: 3, src: "/noavatar.png", name: "John Doe", desgn: "Team Lead - Design", type: "Office", status: "on leave" },
+    { id: 4, src: "/noavatar.png", name: "John Doe", desgn: "Team Lead - Design", type: "Office", status: "Available" },
+    { id: 5, src: "/noavatar.png", name: "John Doe", desgn: "Team Lead - Design", type: "Office", status: "Available" }
 
 ]
 export default function Employees() {
@@ -32,7 +32,7 @@ export default function Employees() {
                 </thead>
                 <tbody className="h-full">
                     {employee.map(emp => (
-                        <tr className=" h-11 w-full">
+                        <tr key={emp.id} className=" h-11 w-full">
                             <td className="max-h-11 w-4/12 border-b-[1px] border-gray-100">
                                 <div className="flex items-center gap-3">
                                     <img className="w-10 h-10" src={emp.src} alt="" />

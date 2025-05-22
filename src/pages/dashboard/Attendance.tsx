@@ -36,9 +36,8 @@ export default function Attendance() {
         { src: "/noavatar.png", name: "John Doe", time: "09:30 AM", department: "Development", desgn: "Team Lead - Design", type: "Office", status: "Late" }
     ]);
 
-    const handleOpenModal = (time: string, index: number) => {
+    const handleOpenModal = (time: string) => {
         setSelectedCheckInTime(time);
-        setSelectedTimeIndex(index);
         setShowModal(true);
     };
 
@@ -46,20 +45,19 @@ export default function Attendance() {
         setShowModal(false);
         setSelectedCheckInTime(null);
     };
-    const handleEditCheckIn = (newTime: string, index: number) => {
+    const handleEditCheckIn = (newTime: string) => {
       
         setEmployee((prevEmployee) => {
             const updatedEmployee = [...prevEmployee];
-            updatedEmployee[index].time = newTime;
             return updatedEmployee;
         });
         handleCloseModal()
     }
     return (
         <div className="flex">
-            {showModal && (
+            {showModal && selectedCheckInTime !== null && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex justify-center items-center" >
-                     <EditCheckInModal checkInTime={selectedCheckInTime} onClose={handleCloseModal} onConfirm={handleEditCheckIn} index={selectedTimeIndex} />
+                     <EditCheckInModal checkInTime={selectedCheckInTime} onClose={handleCloseModal} onConfirm={handleEditCheckIn} />
                 </div>
             )}
             <Sidebar />

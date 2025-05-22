@@ -12,13 +12,15 @@ export const SidebarItem = ({
   inactiveicon?: string;
   text?: string;
   currentPath: string,
-  path: string
+  path?: string
 }) => {
   const isActive = currentPath === path;
 
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(path);
+    if (path) {
+      navigate(path);
+    }
   };
   return (
     <div

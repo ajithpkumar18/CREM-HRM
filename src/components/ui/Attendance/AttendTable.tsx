@@ -23,7 +23,13 @@ const employee = [
 ]
 // interface Items { src: string, name: string, id: Number, department: string, desgn: string, type: string, status: string }
 
-export default function AttendTable({ headings, onEditClick }: { headings: string[], onEditClick: (checkInTime: string) => void }) {
+interface Employee {
+    src: string; name: string; time: string; department: string; desgn: string; type: string; status: string;
+}
+
+export default function AttendTable({ headings, onEditClick, employee }: {
+    headings: string[], onEditClick: (checkInTime: string) => void, employee: Employee[]
+}) {
     const handleEditClick = (time : string) => {
     };
     return (
