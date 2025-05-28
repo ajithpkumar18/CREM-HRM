@@ -1,11 +1,26 @@
+import { use, useEffect, useState } from "react";
+import PieCharts from "../../components/ui/Common/PieCharts";
 import AttendanceOverview from "../../components/ui/Dashboard/AttendanceOverview";
 import CompanyOverview from "../../components/ui/Dashboard/CompanyOverview";
 import Employees from "../../components/ui/Dashboard/Employees";
 import TeamPerformance from "../../components/ui/Dashboard/TeamPerformance";
 import Navbar from "../../components/ui/Navbar";
-import { Sidebar } from "../../components/ui/Sidebar/Sidebar";
+import Sidebar from "../../components/ui/Sidebar/Sidebar";
+import axios from "axios";
 
 export default function Dashboard() {
+    const [user, setUser] = useState(" ");
+    console.log(user);
+    console.log(document.cookie)
+    useEffect(() => {
+        axios.get('http://localhost:3001/hr/employee', {
+            withCredentials: true
+        }).then((response) => {
+            setUser(response.data);
+        }).catch((error) => {
+            console.error("Error fetching data:", error);
+        });
+    }, []);
     return (
         <div className="flex">
             <Sidebar />

@@ -80,7 +80,7 @@ const Leaves: React.FC = () => {
             <div className="flex items-center justify-between mb-6">
               <div className="relative flex items-center">
                 <BiSearch className="absolute ml-3 text-gray-400" />
- <input
+                <input
                   type="text"
                   placeholder="Search"
                   className="pl-10 pr-3 py-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
@@ -88,21 +88,19 @@ const Leaves: React.FC = () => {
               </div>
               <div className="flex space-x-4 flex-wrap gap-2 justify-center">
                 <button
-                  className={`px-4 py-2 rounded-md ${
-                    activeTab === 'vacations'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-200 text-gray-700'
-                  }`}
+                  className={`px-4 py-2 rounded-md ${activeTab === 'vacations'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-200 text-gray-700'
+                    }`}
                   onClick={() => setActiveTab('vacations')}
                 >
                   Employees Vacations
                 </button>
                 <button
-                  className={`px-4 py-2 rounded-md ${
-                    activeTab === 'calendar'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-200 text-gray-700'
-                  }`}
+                  className={`px-4 py-2 rounded-md ${activeTab === 'calendar'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-200 text-gray-700'
+                    }`}
                   onClick={() => setActiveTab('calendar')}
                 >
                   Calendar
@@ -121,19 +119,19 @@ const Leaves: React.FC = () => {
                       >
                         Employee Name
                       </th>
-                       <th
+                      <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                       Employee ID
+                        Employee ID
                       </th>
                       <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
-                       Department
+                        Department
                       </th>
-                       <th
+                      <th
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
@@ -162,19 +160,19 @@ const Leaves: React.FC = () => {
                   <tbody className="bg-white divide-y divide-gray-200">
                     {employeeLeaveData.map((employee: EmployeeLeaveSummary) => ( // Use employeeLeaveData state
                       <tr key={employee.id}>
-                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center">
-                            <img src={user} alt={employee.name} className="h-8 w-8 rounded-full mr-2" />
-                           {employee.name}
-                         </td>
-                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                           {employee.id}
-                         </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                           {"Design"} {/* Placeholder, replace with actual data if available */}
-                         </td>
-                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                           {"UI/UX Designer"} {/* Placeholder, replace with actual data if available */}
-                         </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center">
+                          <img src={user} alt={employee.name} className="h-8 w-8 rounded-full mr-2" />
+                          {employee.name}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {employee.id}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {"Design"} {/* Placeholder, replace with actual data if available */}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {"UI/UX Designer"} {/* Placeholder, replace with actual data if available */}
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {employee.vacations}
                         </td>
@@ -232,7 +230,7 @@ const Leaves: React.FC = () => {
                     </table>
                   </div>
                   {/* Calendar Grid - Fixed Header, Horizontal and Vertical Scrollable Body */}
- <div className="flex-1 overflow-x-auto overflow-y-auto"> {/* Combined horizontal and vertical scroll */}
+                  <div className="flex-1 overflow-x-auto overflow-y-auto"> {/* Combined horizontal and vertical scroll */}
                     <table className="min-w-full divide-y divide-gray-200">
                       <thead className="bg-gray-50 sticky top-0"> {/* Added sticky for header */}
                         <tr >
@@ -240,7 +238,7 @@ const Leaves: React.FC = () => {
                             <th
                               key={index}
                               scope="col"
- className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[50px]" // Increased min-width for date columns
+                              className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider min-w-[50px]" // Increased min-width for date columns
 
                             >
                               {date.split('-')[2]}
@@ -252,22 +250,22 @@ const Leaves: React.FC = () => {
                         </tr>
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200">
- {EmployeeVacationData.map((employee) => ( // Use EmployeeVacationData from imported data
- <tr key={employee.id} className="h-12"> {/* Added a fixed height to rows */}
+                        {EmployeeVacationData.map((employee) => ( // Use EmployeeVacationData from imported data
+                          <tr key={employee.id} className="h-12"> {/* Added a fixed height to rows */}
                             {calendarDates.map((date, index) => {
                               const employeeLeave = EmployeeVacationData.find(item => item.id === employee.id && item.dates.includes(date));
-                                return (
+                              return (
                                 <td key={index} className="border-r border-gray-200 last:border-r-0 py-4"> {/* Adjusted vertical padding */}
                                   {employeeLeave && ( // Conditionally render the colored block
-                                     <div
-                                        className={`w-full h-full rounded-md flex items-center justify-center ${ // Added rounded-md class and fixed height
-                                          getLeaveColor(
-                                             employeeLeave.leaveType,
-                                             employeeLeave.status
-                                           )}`} ></div>
-                                    )}
+                                    <div
+                                      className={`w-full h-full rounded-md flex items-center justify-center ${ // Added rounded-md class and fixed height
+                                        getLeaveColor(
+                                          employeeLeave.leaveType,
+                                          employeeLeave.status
+                                        )}`} ></div>
+                                  )}
 
- 
+
                                 </td>
                               );
                             })}
@@ -292,7 +290,7 @@ const Leaves: React.FC = () => {
                     <span className="w-3 h-3 bg-red-500 rounded-full"></span>
                     <span>Sick Leave Approved</span>
                   </div>
-                   <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1">
                     <span className="w-3 h-3 bg-red-300 rounded-full"></span>
                     <span>Sick Leave Pending</span>
                   </div>
@@ -300,14 +298,14 @@ const Leaves: React.FC = () => {
                     <span className="w-3 h-3 bg-green-500 rounded-full"></span>
                     <span>Work remotely Approved</span>
                   </div>
-                   <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1">
                     <span className="w-3 h-3 bg-green-300 rounded-full"></span>
                     <span>Work remotely Pending</span>
                   </div>
                 </div>
               </div>
             )}
-            </div>
+          </div>
         </main>
       </div>
     </div>

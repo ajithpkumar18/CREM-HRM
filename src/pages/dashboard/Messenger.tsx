@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Sidebar from '/home/user/CREM-HRM/src/components/ui/Sidebar/Sidebar.tsx'; // Assuming Sidebar component exists
-import Navbar from '/home/user/CREM-HRM/src/components/ui/Navbar.tsx'; // Assuming Navbar component exists
+import Sidebar from "../../components/ui/Sidebar/Sidebar";
+import Navbar from '../../components/ui/Navbar';
 import ChatWindow from '../../components/ui/Messenger/ChatWindow';
 import profileImage from '/src/assets/images/profile.png';
 
@@ -71,13 +71,13 @@ const initialMessages: { [key: number]: Message[] } = {
       isSent: true,
     },
   ],
-    2: [
-        { id: 5, text: "Hey Bob! Let's discuss the project.", time: "10:00 AM", isSent: false },
-        { id: 6, text: "Sure, Alice. What's up?", time: "10:01 AM", isSent: true },
-    ],
-    3: [
-        { id: 7, text: "Hi Charlie! What about the proposal?", time: "9:45 AM", isSent: true }
-    ]
+  2: [
+    { id: 5, text: "Hey Bob! Let's discuss the project.", time: "10:00 AM", isSent: false },
+    { id: 6, text: "Sure, Alice. What's up?", time: "10:01 AM", isSent: true },
+  ],
+  3: [
+    { id: 7, text: "Hi Charlie! What about the proposal?", time: "9:45 AM", isSent: true }
+  ]
 };
 
 const MessengerPage: React.FC = () => {
@@ -100,7 +100,7 @@ const MessengerPage: React.FC = () => {
                   className={`flex items-center p-3 cursor-pointer hover:bg-gray-100 ${selectedConversation?.id === conversation.id ? 'bg-gray-200' : ''}`}
                   onClick={() => setSelectedConversation(conversation)}
                 >
-                   <img
+                  <img
                     src={conversation.avatar}
                     alt={conversation.name}
                     className="w-10 h-10 rounded-full mr-3"
@@ -115,8 +115,8 @@ const MessengerPage: React.FC = () => {
             </div>
           </div>
 
-            <ChatWindow selectedConversation={selectedConversation} messages={selectedConversation ? conversationMessages[selectedConversation.id] : []} />
-          
+          <ChatWindow selectedConversation={selectedConversation} messages={selectedConversation ? conversationMessages[selectedConversation.id] : []} />
+
         </div>
       </div>
     </div>

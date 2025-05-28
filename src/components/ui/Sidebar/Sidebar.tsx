@@ -1,3 +1,4 @@
+import { useLocation } from "react-router";
 import { SidebarItem } from "./SideBarItem"
 
 const items = [
@@ -58,25 +59,26 @@ interface SidebarProps {
     className?: string;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ className }) => {
+export default function Sidebar({ className }: SidebarProps) {
     const location = useLocation();
     return (
-    <div className={`top-0 left-0 w-96 ${className || ''}`}>
-        <div className="m-4 rounded-xl border border-r-slate-200 bg-gray-200">
-            <div className="flex p-6 items-center gap-3">
-                <div className="text-purple-600">
-                    <img src="/src/assets/Logo.svg" alt="" />
+        <div className={`top-0 left-0 w-96 ${className || ''}`}>
+            <div className="m-4 rounded-xl border border-r-slate-200 bg-gray-200">
+                <div className="flex p-6 items-center gap-3">
+                    <div className="text-purple-600">
+                        <img src="/src/assets/Logo.svg" alt="" />
+                    </div>
+                    <p className="text-3xl font-bold tracking-wide">
+                        HRMS
+                    </p>
                 </div>
-                <p className="text-3xl font-bold tracking-wide">
-                    HRMS
-                </p>
-            </div>
-            <div className=" h-screen  p-6 items-center gap-3">
-                {items.map((item) => (
-                    <SidebarItem text={item.text} activeicon={item.activelogo as any} inactiveicon={item.inactivelogo as any} />
-                ))}
+                <div className=" h-screen  p-6 items-center gap-3">
+                    {items.map((item) => (
+                        // <SidebarItem text={item.text} activeicon={item.activelogo as any} inactiveicon={item.inactivelogo as any} />
+                        <SidebarItem text={item.text} activeicon={item.activelogo as any} inactiveicon={item.inactivelogo as any} path={item.path as any} currentPath={location as any} />
+                    ))}
+                </div>
             </div>
         </div>
-    </div>
     )
 }

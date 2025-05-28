@@ -2,7 +2,7 @@ import { useState } from "react";
 import AttendTable from "../../components/ui/Attendance/AttendTable";
 import EditCheckInModal from "../../components/ui/Attendance/EditCheckInModal";
 import Navbar from "../../components/ui/Navbar";
-import { Sidebar } from "../../components/ui/Sidebar/Sidebar";
+import Sidebar from "../../components/ui/Sidebar/Sidebar";
 
 interface Employee {
     src: string;
@@ -47,7 +47,7 @@ export default function Attendance() {
         setSelectedCheckInTime(null);
     };
     const handleEditCheckIn = (newTime: string, index: number) => {
-      
+
         setEmployee((prevEmployee) => {
             const updatedEmployee = [...prevEmployee];
             updatedEmployee[index].time = newTime;
@@ -59,7 +59,7 @@ export default function Attendance() {
         <div className="flex">
             {showModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex justify-center items-center" >
-                     <EditCheckInModal checkInTime={selectedCheckInTime} onClose={handleCloseModal} onConfirm={handleEditCheckIn} index={selectedTimeIndex} />
+                    <EditCheckInModal checkInTime={selectedCheckInTime} onClose={handleCloseModal} onConfirm={handleEditCheckIn} index={selectedTimeIndex} />
                 </div>
             )}
             <Sidebar />
@@ -68,18 +68,18 @@ export default function Attendance() {
                 <div className="w-12/12 mr-7 h-full rounded-[10px] p-[22px] flex flex-col gap-[22px]">
                     <div className="w-full flex justify-between ">
                         <div className="flex items-center px-3 border rounded-[10px] w-8/12 my-auto h-[50px] gap-[10px]">
-                             <img className="w-6 h-6" src="/src/assets/dashboard/Navbar/search.svg" alt="" />
+                            <img className="w-6 h-6" src="/src/assets/dashboard/Navbar/search.svg" alt="" />
                             <input className="w-full outline-none" type="text" placeholder="Search" />
                         </div>
-                         <div className="flex  justify-around h-[50px] gap-5">
+                        <div className="flex  justify-around h-[50px] gap-5">
                             <div className="cursor-pointer border rounded-[10px]  flex gap-[10px] justify-center py-2 h-25 w-[60px] items-center">
                                 <img className="w-6 h-6" src="/src/assets/filter.svg" alt="" />
                             </div>
                         </div>
                     </div>
-                       <div>
-                            <AttendTable headings={["Employee Name", "Designation", "Type", "Check In Time", "Status"]} onEditClick={handleOpenModal} employee={employee} />
-                        </div>
+                    <div>
+                        <AttendTable headings={["Employee Name", "Designation", "Type", "Check In Time", "Status"]} onEditClick={handleOpenModal} employee={employee} />
+                    </div>
                 </div>
             </div>
         </div>

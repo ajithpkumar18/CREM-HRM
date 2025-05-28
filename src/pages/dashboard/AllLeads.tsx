@@ -1,6 +1,6 @@
 import AllEmp from "../../components/ui/AllEmployees/AllEmp";
 import Navbar from "../../components/ui/Navbar";
-import { Sidebar } from "../../components/ui/Sidebar/Sidebar";
+import Sidebar from "../../components/ui/Sidebar/Sidebar";
 
 export default function AllLeads() {
     return (
