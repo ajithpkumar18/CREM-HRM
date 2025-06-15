@@ -4,6 +4,7 @@ interface EditCheckInModalProps {
   onClose: () => void;
   onConfirm: (editedTime: string) => void;
   checkInTime: string;
+  index: number | null
 }
 
 const EditCheckInModal: React.FC<EditCheckInModalProps> = ({ onClose, onConfirm, checkInTime }) => {

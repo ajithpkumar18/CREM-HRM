@@ -1,9 +1,12 @@
+import { useRecoilValue } from "recoil";
+import { userData } from "../../data/atom";
 
 export default function Navbar() {
+    const user = useRecoilValue(userData);
     return (
         <div className="w-full  flex h-24 justify-between items-center px-7">
             <div className=" my-auto">
-                <p className=" font-semibold text-[20px] leading-7 text-dark-500">Hello Robert</p>
+                <p className=" font-semibold text-[20px] leading-7 text-dark-500">Hello {user?.username}</p>
                 <p className="font-light text-[14px] leading-[22px] text-nav-gray-500">Good Morning</p>
             </div>
             <div className="w-2/4 flex justify-between items-center">
@@ -17,8 +20,8 @@ export default function Navbar() {
                 <div className="border w-[184px] gap-1 flex items-center justify-between p-1 rounded-lg">
                     <img className="w-10 h-10 rounded-lg " src="/src/assets/images/profile.png" alt="" />
                     <div className="my-auto">
-                        <p className="font-semibold text-[16px] leading-6 text-dark-500">Robert Allen</p>
-                        <p className="font-light text-[12px] leading-[18px] text-nav-gray-500">HR Manager</p>
+                        <p className="font-semibold text-[16px] leading-6 text-dark-500">{user?.username}</p>
+                        <p className="font-light text-[12px] leading-[18px] text-nav-gray-500">{user?.empRole}</p>
                     </div>
                     <div>
                         <img className="w-5 h-5" src="/src/assets/chevron-down.svg" alt="" />

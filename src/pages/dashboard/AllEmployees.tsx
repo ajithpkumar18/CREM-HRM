@@ -1,8 +1,18 @@
+import { useState } from "react";
 import AllEmp from "../../components/ui/AllEmployees/AllEmp";
 import Navbar from "../../components/ui/Navbar";
 import Sidebar from "../../components/ui/Sidebar/Sidebar";
+import AddEmployeeModal from "../../components/ui/Modals/AddEmployeeModal";
 
 export default function AllEmployees() {
+    const [showModal, setShowModal] = useState(false);
+
+    const handleOpenModal = () => {
+        setShowModal(true);
+    }
+    const handleCloseModal = () => {
+        setShowModal(false);
+    }
     return (
         <div className="flex">
             <Sidebar />
@@ -17,7 +27,7 @@ export default function AllEmployees() {
                         <div className="flex w-4/12 justify-around h-[50px] gap-5">
                             <div className="cursor-pointer bg-purple-primary-500 rounded-[10px] text-white flex gap-[10px] p-5 h-25 w-[220px] items-center ">
                                 <img className="h-6 w-6" src="/src/assets/plus.svg" alt="" />
-                                <p className="font-light text-[16px] leading-[24px] ">All New Employee</p>
+                                <button onClick={() => handleOpenModal()} className="font-light text-[16px] leading-[24px] ">Add New Employee</button>
                             </div>
                             <div className="cursor-pointer border rounded-[10px]  flex gap-[10px] p-5 h-25 w-[112px] items-center">
                                 <img className="w-6 h-6" src="/src/assets/filter.svg" alt="" />
@@ -28,6 +38,7 @@ export default function AllEmployees() {
                     <div>
                         <AllEmp headings={["Employee Name", "Employee ID", "Department", "Designation", "Type", "Status", "Action"]} />
                     </div>
+                    {showModal && <AddEmployeeModal onClose={handleCloseModal} />}
                 </div>
             </div>
         </div>

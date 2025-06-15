@@ -19,8 +19,6 @@ const employee = [
     { date: "January 01, 2023", day: "Tuesday", name: "New Year", upcoming: true }
 
 ]
-// interface Items { src: string, name: string, id: Number, department: string, desgn: string, type: string, status: string }
-
 export default function HoliTable({ headings }: { headings: string[] }) {
     return (
         <div className="w-full h-full border rounded-lg p-5 flex flex-col gap-5">

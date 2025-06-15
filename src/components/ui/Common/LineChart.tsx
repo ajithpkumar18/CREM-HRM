@@ -1,4 +1,3 @@
-// TeamPerformanceChart.tsx
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const data = [
@@ -17,7 +16,6 @@ export default function TeamPerformanceChart() {
             <ResponsiveContainer className="" >
 
                 <LineChart data={data}>
-                    {/* <CartesianGrid strokeDasharray="3 3" /> */}
                     <XAxis dataKey="name" axisLine={false} tickLine={false} />
                     <YAxis domain={[1, 7]} axisLine={false} tickLine={false} />
                     <Tooltip />

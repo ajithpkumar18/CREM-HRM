@@ -15,31 +15,88 @@ import Attendance from './pages/dashboard/Attendance'
 import Holidays from './pages/dashboard/Holiday'
 import Settings from './pages/dashboard/Settings'
 import SignInPage from './pages/SignIn'
-import { useRecoilValue } from 'recoil'
-import { loggedin } from './data/atom'
+import { RecoilRoot } from 'recoil'
+import { RedirectIfLoggedIn, RequireAuth } from './components/ProtectionWarppers/Auth'
 
 function App() {
 
   return (
+    <RecoilRoot>
+      <Routes>
+        <Route path='/' element={<Navigate to="/signin" />} />
 
-    <Routes>
-      <Route path='/' element={<Navigate to="/signup" />} />
-      <Route path='/signup' element={<SignUpPage />} />
-      <Route path='/signin' element={<SignInPage />} />
-      <Route path='/personal' element={<PInfo />} />
-      <Route path='/pinfo' element={<PInfo />} />
-      <Route path='/professionalinfo' element={<ProfessionalInfo />} />
-      <Route path='/Social' element={<SocialProfile />} />
-      <Route path='/Contact' element={<Contact />} />
-      <Route path='/dashboard' element={<Dashboard />} />
-      <Route path='/employees' element={<AllEmployees />} />
-      <Route path='/leads' element={<AllLeads />} />
-      <Route path='/attendance' element={<Attendance />} />
-      <Route path='/holidays' element={<Holidays />} />
-      <Route path='/setting' element={<Settings />} />
-      <Route path='/messenger' element={<Messenger />} />
-      <Route path='/leaves' element={<Leaves />} />
-    </Routes>
+        <Route path='/signin' element={<RedirectIfLoggedIn>
+          <SignInPage />
+        </RedirectIfLoggedIn>
+        }
+        />
+
+        <Route path='/signup' element={<RedirectIfLoggedIn>
+          <SignUpPage />
+        </RedirectIfLoggedIn>
+        } />
+        <Route path='/personal' element={
+          // <RequireAuth>
+          <PInfo />
+          // </RequireAuth>
+        } />
+        <Route path='/professionalinfo' element={
+          // <RequireAuth>
+          <ProfessionalInfo />
+          // </RequireAuth>
+        } />
+        <Route path='/Social' element={
+          // <RequireAuth>
+          <SocialProfile />
+          // </RequireAuth>
+        } />
+        <Route path='/Contact' element={
+          // <RequireAuth>
+          <Contact />
+          // </RequireAuth>
+        } />
+        <Route path='/dashboard' element={
+          // <RequireAuth>
+          <Dashboard />
+          // </RequireAuth>
+        } />
+        <Route path='/employees' element={
+          // <RequireAuth>
+          <AllEmployees />
+          // </RequireAuth>
+        } />
+        <Route path='/leads' element={
+          // <RequireAuth>
+          <AllLeads />
+          // </RequireAuth>
+        } />
+        <Route path='/attendance' element={
+          // <RequireAuth>
+          <Attendance />
+          // </RequireAuth>
+        } />
+        <Route path='/holidays' element={
+          // <RequireAuth>
+          <Holidays />
+          // </RequireAuth>
+        } />
+        <Route path='/setting' element={
+          // <RequireAuth>
+          <Settings />
+          // </RequireAuth>
+        } />
+        <Route path='/messenger' element={
+          // <RequireAuth>
+          <Messenger />
+          // </RequireAuth>
+        } />
+        <Route path='/leaves' element={
+          // <RequireAuth>
+          <Leaves />
+          // </RequireAuth>
+        } />
+      </Routes>
+    </RecoilRoot>
   )
 
 }

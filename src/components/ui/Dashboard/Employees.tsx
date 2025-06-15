@@ -1,4 +1,8 @@
+import axios from "axios";
+import { useEffect } from "react";
 import { Link } from "react-router";
+import { useRecoilState } from "recoil";
+import { allEmployees } from "../../../data/atom";
 const employee = [
     {
         src: "/noavatar.png", name: "John Doe", desgn: "Team Lead - Design", type: "Office", status: "Available"
@@ -11,6 +15,18 @@ const employee = [
 
 ]
 export default function Employees() {
+    const [employees, setEmployees] = useRecoilState(allEmployees);
+    useEffect(() => {
+        axios.get('http://localhost:3001/hr/employees', {
+            withCredentials: true
+        }).then((response) => {
+            console.log(response.data);
+            setEmployees(response.data);
+            console.log(employees);
+        }).catch((error) => {
+            console.error("Error fetching data:", error);
+        });
+    }, [setEmployees])
     return (
         <div className="w-[686px] border rounded-lg p-5 flex flex-col gap-5">
             <div className="flex items-center justify-between">
@@ -31,23 +47,23 @@ export default function Employees() {
                     </tr>
                 </thead>
                 <tbody className="h-full">
-                    {employee.map(emp => (
+                    {employees.map(emp => (
                         <tr className=" h-11 w-full">
                             <td className="max-h-11 w-4/12 border-b-[1px] border-gray-100">
                                 <div className="flex items-center gap-3">
-                                    <img className="w-10 h-10" src={emp.src} alt="" />
+                                    {/* <img className="w-10 h-10" src={} alt="" /> */}
                                     <p className="font-normal text-[16px] leading-[24px] text-dark-500">
-                                        {emp.name}
+                                        {emp.fullName}
                                     </p>
                                 </div>
                             </td>
                             <td className="border-b w-4/12 border-gray-100 h-11 font-normal text-[16px] leading-[24px] text-dark-500">
-                                <span className="{}">{emp.desgn}</span>
+                                <span className="{}">{emp.companyID}</span>
                             </td>
-                            <td className="border-b w-2/12 border-gray-100 h-11 font-normal text-[16px] leading-[24px] text-dark-500">{emp.type}</td>
+                            <td className="border-b w-2/12 border-gray-100 h-11 font-normal text-[16px] leading-[24px] text-dark-500">{emp.empType}</td>
                             <td className="h-11 border-b w-2/12 border-gray-100">
-                                <p className={`font-normal w-3/4 py-1 text-[12px] leading-[18px] ${emp.status.toLowerCase() == "available" ? "text-green-500 bg-green-100 rounded-sm text-center" : "text-red-600 bg-red-100 rounded-sm text-center"}`}>
-                                    {CapitalWords(emp.status)}
+                                <p className={`font-normal w-3/4 py-1 text-[12px] leading-[18px] ${true ? "text-green-500 bg-green-100 rounded-sm text-center" : "text-red-600 bg-red-100 rounded-sm text-center"}`}>
+                                    {emp.residence}
                                 </p>
                             </td>
                         </tr>
@@ -112,12 +128,12 @@ export default function Employees() {
     )
 }
 
-function CapitalWords(mySentence: string) {
-    let words = mySentence.split(" ");
+// function CapitalWords(mySentence: string) {
+//     let words = mySentence.split(" ");
 
-    for (let i = 0; i < words.length; i++) {
-        words[i] = words[i][0].toUpperCase() + words[i].substr(1) + " ";
-    }
+//     for (let i = 0; i < words.length; i++) {
+//         words[i] = words[i][0].toUpperCase() + words[i].substr(1) + " ";
+//     }
 
-    return words;
-}
+//     return words;
+// }

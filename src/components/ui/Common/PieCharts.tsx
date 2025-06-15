@@ -6,7 +6,7 @@ const data = [
     { name: 'On leave', value: 20 },
 ];
 
-const COLORS = ['#FFA500', '#00C49F', '#FF5C5C'];  // Orange, Green, Red
+const COLORS = ['#FFA500', '#00C49F', '#FF5C5C'];
 
 export default function PieCharts() {
     return (

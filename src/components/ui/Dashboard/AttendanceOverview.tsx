@@ -1,4 +1,3 @@
-import React from "react";
 import PieCharts from "../Common/PieCharts";
 
 interface AttendanceOverviewProps {

@@ -1,31 +1,20 @@
 import Dropdown from "../Common/Dropdown";
 import Pagination from "../Common/Pagination";
-const employee = [
-    {
-        src: "/noavatar.png", name: "John Doe", time: "09:30 AM", department: "Development", desgn: "Team Lead - Design", type: "Office", status: "Late"
-    },
-    { src: "/noavatar.png", name: "John Doe", time: "09:30 AM", department: "Development", desgn: "Team Lead - Design", type: "Office", status: "Late" },
 
-    { src: "/noavatar.png", name: "John Doe", time: "09:30 AM", department: "Development", desgn: "Team Lead - Design", type: "Office", status: "on time" },
-    { src: "/noavatar.png", name: "John Doe", time: "09:30 AM", department: "Development", desgn: "Team Lead - Design", type: "Office", status: "Late" },
-    { src: "/noavatar.png", name: "John Doe", time: "09:30 AM", department: "Development", desgn: "Team Lead - Design", type: "Office", status: "Late" },
-    { src: "/noavatar.png", name: "John Doe", time: "09:30 AM", department: "Development", desgn: "Team Lead - Design", type: "Office", status: "Late" },
+interface Employee {
+    checkInTime: string;
+    date: string;
+    status: string;
+    userDetails: {
+        username: string;
+        email: string;
+    }
+}
 
-    { src: "/noavatar.png", name: "John Doe", time: "09:30 AM", department: "Development", desgn: "Team Lead - Design", type: "Office", status: "on time" },
-    { src: "/noavatar.png", name: "John Doe", time: "09:30 AM", department: "Development", desgn: "Team Lead - Design", type: "Office", status: "Late" },
-    { src: "/noavatar.png", name: "John Doe", time: "09:30 AM", department: "Development", desgn: "Team Lead - Design", type: "Office", status: "Late" },
-    { src: "/noavatar.png", name: "John Doe", time: "09:30 AM", department: "Development", desgn: "Team Lead - Design", type: "Office", status: "Late" },
-
-    { src: "/noavatar.png", name: "John Doe", time: "09:30 AM", department: "Development", desgn: "Team Lead - Design", type: "Office", status: "on time" },
-    { src: "/noavatar.png", name: "John Doe", time: "09:30 AM", department: "Development", desgn: "Team Lead - Design", type: "Office", status: "Late" },
-    { src: "/noavatar.png", name: "John Doe", time: "09:30 AM", department: "Development", desgn: "Team Lead - Design", type: "Office", status: "Late" }
-
-]
-// interface Items { src: string, name: string, id: Number, department: string, desgn: string, type: string, status: string }
-
-export default function AttendTable({ headings, onEditClick }: { headings: string[], onEditClick: (checkInTime: string) => void }) {
-    const handleEditClick = (time : string) => {
+export default function AttendTable({ headings, onEditClick, employee }: { headings: string[], employee: Employee[], onEditClick: (checkInTime: string) => void }) {
+    const handleEditClick = (time: string) => {
     };
+    console.log(employee)
     return (
         <div className="w-full h-full border rounded-lg p-5 flex flex-col gap-5">
             <table className="h-[422px] w-full">
@@ -34,13 +23,6 @@ export default function AttendTable({ headings, onEditClick }: { headings: strin
                         {headings.map(head => (
                             <td className=" h-11 font-normal text-[16px] leading-[24px] text-nav-gray-500">{head}</td>
                         ))}
-                        {/* <td className=" h-11 font-normal text-[16px] leading-[24px] text-nav-gray-500">Employee Name</td>
-                        <td className=" h-11 font-normal text-[16px] leading-[24px] text-nav-gray-500">Employee ID</td>
-                       <td className=" h-11 font-normal text-[16px] leading-[24px] text-nav-gray-500">Department</td>
-                        <td className=" h-11 font-normal text-[16px] leading-[24px] text-nav-gray-500">Designation</td>
-                        <td className=" h-11 font-normal text-[16px] leading-[24px] text-nav-gray-500">Type</td>
-                        <td className=" h-11 font-normal text-[16px] leading-[24px] text-nav-gray-500">Status</td>
-                        <td className=" h-11 font-normal text-[16px] leading-[24px] text-nav-gray-500">Action</td> */}
                     </tr>
                 </thead>
                 <tbody className="h-full">
@@ -48,29 +30,29 @@ export default function AttendTable({ headings, onEditClick }: { headings: strin
                         <tr className=" h-14 w-full">
                             <td className="max-h-11 w-[252px] border-b-[1px] border-gray-100 ">
                                 <div className="flex items-center gap-3">
-                                    <img className="w-10 h-10" src={emp.src} alt="" />
+                                    {/* <img className="w-10 h-10" src={} alt="" /> */}
                                     <p className="font-normal text-[16px] leading-[24px] text-dark-500">
-                                        {emp.name}
+                                        {emp.userDetails.username}
                                     </p>
                                 </div>
                             </td>
                             <td className="h-11 border-b-[1px] w-[225px] border-gray-100">
                                 <p className={`font-normal w-3/4 py-1 text-[14px] leading-[18px]`}>
-                                    {emp.desgn}
+                                    {emp.userDetails.email}
                                 </p>
                             </td>
                             <td className="h-11 border-b-[1px] w-[172px] border-gray-100">
                                 <p className={`font-normal w-3/4 py-1 text-[14px] leading-[18px]}`}>
-                                    {emp.type}
+                                    {emp.date}
                                 </p>
                             </td>
                             <td className="border-b-[1px] border-gray-100 h-11 font-normal text-[16px] leading-[24px] text-dark-500 relative group flex items-center">
-                                <span className="mr-2">{emp.time}</span>                               
+                                <span className="mr-2">{emp.checkInTime}</span>
                                 <button
-                                onClick={() => onEditClick(emp.time)}
-                                className="invisible group-hover:visible  transition-opacity duration-200 cursor-pointer"
-                            >
-                                <img src="/src/assets/pencil.svg" alt="Edit" className="w-4 h-4" />
+                                    onClick={() => onEditClick(emp.checkInTime)}
+                                    className="invisible group-hover:visible  transition-opacity duration-200 cursor-pointer"
+                                >
+                                    <img src="/src/assets/pencil.svg" alt="Edit" className="w-4 h-4" />
                                 </button>
 
                             </td>

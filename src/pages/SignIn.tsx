@@ -2,10 +2,10 @@ import { useState } from 'react';
 import InputI from '../components/ui/Common/InputI';
 import axios from 'axios';
 
-import z from 'zod';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { loggedin } from '../data/atom';
-import { useNavigate } from 'react-router';
+import z, { set } from 'zod';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { authState } from '../data/atom';
+import { replace, useNavigate } from 'react-router';
 
 
 const passwordSchema = z
@@ -24,6 +24,7 @@ export default function SignInPage() {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const setAuthState = useSetRecoilState(authState);
 
 
 
@@ -60,16 +61,18 @@ export default function SignInPage() {
       })
         .then((response) => {
           if (response.status === 200) {
-            navigate("/dashboard");
-            console.log(response);
+            alert(response.status)
+            console.log(response.data)
+            setAuthState(c => c = response.data);
+            console.log('User logged in successfully', authState);
+
+            navigate('/dashboard', { replace: true });
+
             localStorage.setItem('user', JSON.stringify(response.data));
           }
-
-          // Handle successful registration (e.g., redirect to login page)
         })
         .catch((error) => {
           console.error('Error logging in', error);
-          // Handle error (e.g., show error message)
         });
     };
   }
@@ -81,7 +84,7 @@ export default function SignInPage() {
         `}
       </style>
       <form onSubmit={handleSubmit} className='flex flex-col gap-6 items-center mx-auto size-[404px] h-[636px] '>
-        <div className='w-[274px] h-7 mt-4'> <p className='font-bold text-2xl leading-(125%) tracking-[0.2px] text-custom-grey-900'>
+        <div className='w-[274px] h-7 mt-4 flex items-center justify-center'> <p className='font-bold text-2xl leading-(125%) tracking-[0.2px] text-custom-grey-900'>
           Sign In
         </p>
         </div>

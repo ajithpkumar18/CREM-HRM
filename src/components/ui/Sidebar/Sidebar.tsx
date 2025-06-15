@@ -11,47 +11,56 @@ const items = [
     {
         activelogo: "/src/assets/dashboard/sidebar/allemployees_blue.svg",
         text: "All Employees",
-        inactivelogo: "/src/assets/dashboard/sidebar/allemployees.svg"
+        inactivelogo: "/src/assets/dashboard/sidebar/allemployees.svg",
+        path: "/employees"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/allleads_blue.svg",
         text: "All Leads",
-        inactivelogo: "/src/assets/dashboard/sidebar/allleads.svg"
+        inactivelogo: "/src/assets/dashboard/sidebar/allleads.svg",
+        path: "/leads"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/attendance_blue.svg",
         text: "Attendance",
-        inactivelogo: "/src/assets/dashboard/sidebar/attendance.svg"
+        inactivelogo: "/src/assets/dashboard/sidebar/attendance.svg",
+        path: "/attendance"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/payroll_blue.svg",
         text: "Payroll",
-        inactivelogo: "/src/assets/dashboard/sidebar/payroll.svg"
+        inactivelogo: "/src/assets/dashboard/sidebar/payroll.svg",
+        path: "/payroll"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/jobs_blue.svg",
         text: "Jobs",
-        inactivelogo: "/src/assets/dashboard/sidebar/jobs.svg"
+        inactivelogo: "/src/assets/dashboard/sidebar/jobs.svg",
+        path: "/jobs"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/candidates_blue.svg",
         text: "Candidates",
-        inactivelogo: "/src/assets/dashboard/sidebar/candidates.svg"
+        inactivelogo: "/src/assets/dashboard/sidebar/candidates.svg",
+        path: "/candidates"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/leaves_blue.svg",
         text: "Leaves",
-        inactivelogo: "/src/assets/dashboard/sidebar/leaves.svg"
+        inactivelogo: "/src/assets/dashboard/sidebar/leaves.svg",
+        path: "/leaves"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/holidays_blue.svg",
         text: "Holidays",
-        inactivelogo: "/src/assets/dashboard/sidebar/holidays.svg"
+        inactivelogo: "/src/assets/dashboard/sidebar/holidays.svg",
+        path: "/holidays"
     },
     {
         activelogo: "/src/assets/dashboard/sidebar/setting_blue.svg",
         text: "Setting",
-        inactivelogo: "/src/assets/dashboard/sidebar/setting.svg"
+        inactivelogo: "/src/assets/dashboard/sidebar/setting.svg",
+        path: "/setting"
     }
 ]
 
@@ -74,8 +83,7 @@ export default function Sidebar({ className }: SidebarProps) {
                 </div>
                 <div className=" h-screen  p-6 items-center gap-3">
                     {items.map((item) => (
-                        // <SidebarItem text={item.text} activeicon={item.activelogo as any} inactiveicon={item.inactivelogo as any} />
-                        <SidebarItem text={item.text} activeicon={item.activelogo as any} inactiveicon={item.inactivelogo as any} path={item.path as any} currentPath={location as any} />
+                        <SidebarItem text={item.text} activeicon={item.activelogo} inactiveicon={item.inactivelogo} path={item.path} />
                     ))}
                 </div>
             </div>
