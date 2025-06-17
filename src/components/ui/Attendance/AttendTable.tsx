@@ -1,3 +1,4 @@
+import { getTimeOnly } from "../../addons/DateMesc";
 import Dropdown from "../Common/Dropdown";
 import Pagination from "../Common/Pagination";
 
@@ -26,7 +27,7 @@ export default function AttendTable({ headings, onEditClick, employee }: { headi
                     </tr>
                 </thead>
                 <tbody className="h-full">
-                    {employee.map(emp => (
+                    {employee && employee.map(emp => (
                         <tr className=" h-14 w-full">
                             <td className="max-h-11 w-[252px] border-b-[1px] border-gray-100 ">
                                 <div className="flex items-center gap-3">
@@ -47,7 +48,7 @@ export default function AttendTable({ headings, onEditClick, employee }: { headi
                                 </p>
                             </td>
                             <td className="border-b-[1px] border-gray-100 h-11 font-normal text-[16px] leading-[24px] text-dark-500 relative group flex items-center">
-                                <span className="mr-2">{emp.checkInTime}</span>
+                                <span className="mr-2">{getTimeOnly(emp.checkInTime)}</span>
                                 <button
                                     onClick={() => onEditClick(emp.checkInTime)}
                                     className="invisible group-hover:visible  transition-opacity duration-200 cursor-pointer"

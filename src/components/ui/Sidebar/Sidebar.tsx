@@ -45,7 +45,7 @@ const items = [
         path: "/candidates"
     },
     {
-        activelogo: "/src/assets/dashboard/sidebar/leaves_blue.svg",
+        activelogo: "/src/assets/dashboard/sidebar/leaves_purple.svg",
         text: "Leaves",
         inactivelogo: "/src/assets/dashboard/sidebar/leaves.svg",
         path: "/leaves"

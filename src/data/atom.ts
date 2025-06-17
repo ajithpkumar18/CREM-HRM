@@ -54,3 +54,8 @@ export const AllLeads = atom<LeadsData[]>({
     key: "allLeads",
     default: []
 })
+
+export const SearchedUser = atom<UserData[]>({
+    key: "searchedUser",
+    default: []
+})
