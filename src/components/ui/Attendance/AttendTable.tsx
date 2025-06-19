@@ -1,76 +1,94 @@
+import { Employee } from "../../../data/atom";
 import { getTimeOnly } from "../../addons/DateMesc";
 import Dropdown from "../Common/Dropdown";
 import Pagination from "../Common/Pagination";
 
-interface Employee {
-    checkInTime: string;
-    date: string;
-    status: string;
-    userDetails: {
-        username: string;
-        email: string;
-    }
-}
-
 export default function AttendTable({ headings, onEditClick, employee }: { headings: string[], employee: Employee[], onEditClick: (checkInTime: string) => void }) {
     const handleEditClick = (time: string) => {
+        onEditClick(time);
     };
-    console.log(employee)
+
     return (
-        <div className="w-full h-full border rounded-lg p-5 flex flex-col gap-5">
-            <table className="h-[422px] w-full">
+        <div className="w-full h-full border rounded-lg flex flex-col gap-6 bg-white shadow-md">
+
+            <table className="w-full border-collapse">
                 <thead>
-                    <tr className="border-b-[1px] border-gray-100 h-11 w-full">
-                        {headings.map(head => (
-                            <td className=" h-11 font-normal text-[16px] leading-[24px] text-nav-gray-500">{head}</td>
+                    <tr className="border-b-[1px] border-gray-200 h-12 bg-gray-50">
+                        {headings.map((head, index) => (
+                            <th
+                                key={index}
+                                className="text-left font-medium text-[14px] leading-[20px] text-gray-600 px-4 py-2"
+                            >
+                                {head}
+                            </th>
                         ))}
                     </tr>
                 </thead>
-                <tbody className="h-full">
-                    {employee && employee.map(emp => (
-                        <tr className=" h-14 w-full">
-                            <td className="max-h-11 w-[252px] border-b-[1px] border-gray-100 ">
+                <tbody>
+                    {employee && employee.map((emp, index) => (
+                        <tr key={index} className="h-14 hover:bg-gray-100">
+
+                            <td className="border-b-[1px] border-gray-200 px-4 py-2">
                                 <div className="flex items-center gap-3">
-                                    {/* <img className="w-10 h-10" src={} alt="" /> */}
-                                    <p className="font-normal text-[16px] leading-[24px] text-dark-500">
+                                    <p className="font-normal text-[14px] leading-[20px] text-gray-800">
                                         {emp.userDetails.username}
                                     </p>
                                 </div>
                             </td>
-                            <td className="h-11 border-b-[1px] w-[225px] border-gray-100">
-                                <p className={`font-normal w-3/4 py-1 text-[14px] leading-[18px]`}>
+
+                            <td className="border-b-[1px] border-gray-200 px-4 py-2">
+                                <p className="font-normal text-[14px] leading-[20px] text-gray-600">
                                     {emp.userDetails.email}
                                 </p>
                             </td>
-                            <td className="h-11 border-b-[1px] w-[172px] border-gray-100">
-                                <p className={`font-normal w-3/4 py-1 text-[14px] leading-[18px]}`}>
+
+                            <td className="border-b-[1px] border-gray-200 px-4 py-2">
+                                <p className="font-normal text-[14px] leading-[20px] text-gray-600">
                                     {emp.date}
                                 </p>
                             </td>
-                            <td className="border-b-[1px] border-gray-100 h-11 font-normal text-[16px] leading-[24px] text-dark-500 relative group flex items-center">
-                                <span className="mr-2">{getTimeOnly(emp.checkInTime)}</span>
+
+                            <td className="border-b-[1px] border-gray-200 px-4 py-2 relative group">
+                                <span className="font-normal text-[14px] leading-[20px] text-gray-800">
+                                    {getTimeOnly(emp.checkInTime)}
+                                </span>
                                 <button
-                                    onClick={() => onEditClick(emp.checkInTime)}
-                                    className="invisible group-hover:visible  transition-opacity duration-200 cursor-pointer"
+                                    onClick={() => handleEditClick(emp.checkInTime)}
+                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 invisible group-hover:visible transition-opacity duration-200 cursor-pointer"
                                 >
                                     <img src="/src/assets/pencil.svg" alt="Edit" className="w-4 h-4" />
                                 </button>
-
                             </td>
-                            {/* <td className="border-b-[1px] w-[112px] border-gray-100 h-11 font-normal text-[16px] leading-[24px] text-dark-500">{emp.type}</td> */}
-                            <td className="h-11 border-b-[1px] w-[110px] border-gray-100">
-                                <p className={`font-normal  text-[14px] leading-[18px] ${emp.status.toLowerCase() == "late" ? "text-red-600 bg-red-100 rounded-md text-center py-1 w-2/4" : "text-green-500 bg-green-100 text-center py-1 w-3/4 rounded-md"} px-1"}`}>
+                            <td className="border-b-[1px] border-gray-200 px-4 py-2 relative group">
+                                <span className="font-normal text-[14px] leading-[20px] text-gray-800">
+                                    {emp.checkOutTime ? getTimeOnly(emp.checkOutTime) : "pending"}
+                                </span>
+                                <button
+                                    onClick={() => handleEditClick(emp.checkInTime)}
+                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 invisible group-hover:visible transition-opacity duration-200 cursor-pointer"
+                                >
+                                    <img src="/src/assets/pencil.svg" alt="Edit" className="w-4 h-4" />
+                                </button>
+                            </td>
+
+                            <td className="border-b-[1px] border-gray-200 px-4 py-2">
+                                <p
+                                    className={`font-normal text-[14px] leading-[20px] text-center py-1 rounded-md ${emp.status.toLowerCase() === "late"
+                                        ? "text-red-600 bg-red-100"
+                                        : "text-green-600 bg-green-100"
+                                        }`}
+                                >
                                     {CapitalWords(emp.status)}
                                 </p>
                             </td>
-
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <div className="flex gap-2 items-center justify-between">
+
+            <div className="flex gap-4 items-center justify-between mt-4">
                 <div className="flex items-center gap-2">
-                    <p>Showing</p>
+                    <p className="text-sm text-gray-600">Showing</p>
                     <Dropdown start="10" />
                 </div>
                 <div className="w-8/12">
@@ -78,15 +96,15 @@ export default function AttendTable({ headings, onEditClick, employee }: { headi
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 function CapitalWords(mySentence: string) {
     let words = mySentence.split(" ");
 
     for (let i = 0; i < words.length; i++) {
-        words[i] = words[i][0].toUpperCase() + words[i].substr(1) + " ";
+        words[i] = words[i][0].toUpperCase() + words[i].substr(1);
     }
 
-    return words;
+    return words.join(" ");
 }

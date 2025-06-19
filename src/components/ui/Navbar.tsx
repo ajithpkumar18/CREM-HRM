@@ -4,7 +4,7 @@ import { userData } from "../../data/atom";
 export default function Navbar() {
     const user = useRecoilValue(userData);
     return (
-        <div className="w-full  flex h-24 justify-between items-center px-7">
+        <div className="w-11/12 flex h-24 justify-between items-center">
             <div className=" my-auto">
                 <p className=" font-semibold text-[20px] leading-7 text-dark-500">Hello {user?.username}</p>
                 <p className="font-light text-[14px] leading-[22px] text-nav-gray-500">Good Morning</p>

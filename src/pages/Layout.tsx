@@ -4,11 +4,14 @@ import Sidebar from "../components/ui/Sidebar/Sidebar";
 
 export default function Layout() {
     return (
-        <div className="flex">
+        <div className="flex gap-3 w-full">
+
             <Sidebar />
-            <div className="w-full">
+            <div className="flex-1 py-6 px-8 overflow-y-auto">
+
                 <Navbar />
-                <div className="p-4">
+                <div >
+
                     <Outlet />
                 </div>
             </div>

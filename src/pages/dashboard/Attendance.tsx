@@ -2,17 +2,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AttendTable from "../../components/ui/Attendance/AttendTable";
 import EditCheckInModal from "../../components/ui/Attendance/EditCheckInModal";
+import { Employee } from "../../data/atom";
 
 
-interface Employee {
-    checkInTime: string;
-    date: string;
-    status: string;
-    userDetails: {
-        username: string;
-        email: string;
-    }
-}
 
 export default function Attendance() {
     const [showModal, setShowModal] = useState(false);
@@ -23,7 +15,6 @@ export default function Attendance() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-
     const fetchAttendance = async () => {
         setLoading(true);
         setError(null);
@@ -31,7 +22,7 @@ export default function Attendance() {
         try {
             const response = await axios.get(`http://localhost:3001/hr/attendance/daily`, {
                 params: { date },
-                withCredentials: true
+                withCredentials: true,
             });
 
             console.log("Fetched attendance data:", response.data.attendanceRecords);
@@ -50,7 +41,6 @@ export default function Attendance() {
 
     const handleOpenModal = (time: string) => {
         setSelectedCheckInTime(time);
-        setSelectedTimeIndex(null);
         setShowModal(true);
     };
 
@@ -60,13 +50,33 @@ export default function Attendance() {
         setSelectedTimeIndex(null);
     };
 
-    const handleEditCheckIn = (newTime: string) => {
+    const handleEditCheckIn = async (newTime: string) => {
         if (selectedTimeIndex !== null) {
-            setEmployee((prevEmployee) => {
-                const updatedEmployee = [...prevEmployee];
-                updatedEmployee[selectedTimeIndex].checkInTime = newTime;
-                return updatedEmployee;
-            });
+            try {
+
+                const response = await axios.put(
+                    `http://localhost:3001/hr/attendance/update`,
+                    {
+                        date,
+                        checkInTime: newTime,
+                        employeeId: employee[selectedTimeIndex].userDetails.email, // Assuming email is unique
+                    },
+                    { withCredentials: true }
+                );
+
+                console.log("Updated attendance data:", response.data);
+
+                setEmployee((prevEmployee) => {
+                    const updatedEmployee = [...prevEmployee];
+                    updatedEmployee[selectedTimeIndex].checkInTime = newTime;
+                    return updatedEmployee;
+                });
+
+                alert("Check-in time updated successfully!");
+            } catch (err: any) {
+                console.error("Error updating check-in time:", err);
+                alert(err.response?.data?.message || "Failed to update check-in time");
+            }
         }
         handleCloseModal();
     };
@@ -84,31 +94,33 @@ export default function Attendance() {
                 </div>
             )}
 
-            <div className="w-12/12 mr-7 h-full rounded-[10px] p-[22px] flex flex-col gap-[22px]">
-                <div className="w-full flex justify-between">
-                    <div className="flex items-center px-3 border rounded-[10px] w-8/12 my-auto h-[50px] gap-[10px]">
-                        <img className="w-6 h-6" src="/src/assets/dashboard/Navbar/search.svg" alt="" />
+            <div className="w-full h-full rounded-[10px] flex flex-col gap-6 mt-5">
+
+                <div className="w-full flex flex-wrap justify-between items-center gap-4">
+
+                    <div className="flex items-center px-4 border rounded-[10px] w-full md:w-6/12 h-[50px] gap-3 bg-white">
+                        <img className="w-6 h-6" src="/src/assets/dashboard/Navbar/search.svg" alt="Search Icon" />
                         <input
-                            className="w-full outline-none"
+                            className="w-full outline-none text-sm"
                             type="date"
                             value={date}
                             onChange={(e) => setDate(e.target.value)}
                         />
                     </div>
-                    <div className="flex justify-around h-[50px] gap-5">
-                        <div className="cursor-pointer border rounded-[10px] flex gap-[10px] justify-center py-2 h-25 w-[60px] items-center">
-                            <img className="w-6 h-6" src="/src/assets/filter.svg" alt="" />
-                        </div>
+
+                    <div className="flex justify-center items-center h-[50px] w-[60px] border rounded-[10px] bg-white cursor-pointer">
+                        <img className="w-6 h-6" src="/src/assets/filter.svg" alt="Filter Icon" />
                     </div>
                 </div>
-                <div>
+
+                <div className="w-full h-full border rounded-lg flex flex-col gap-6 bg-white shadow-md">
                     {loading ? (
                         <p>Loading attendance data...</p>
                     ) : error ? (
                         <p style={{ color: "red" }}>{error}</p>
                     ) : (
                         <AttendTable
-                            headings={["Employee Name", "Designation", "Type", "Check In Time", "Status"]}
+                            headings={["Employee Name", "Designation", "Type", "Check In Time", "Check Out Time", "Status"]}
                             onEditClick={handleOpenModal}
                             employee={employee}
                         />

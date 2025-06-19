@@ -28,16 +28,18 @@ export default function Dashboard() {
 
     return (
         <>
-            <div>
+            {/* <div>
                 <AddBreak />
-            </div>
-            <div className="flex border rounded-xl h-[345px] justify-evenly px-7 gap-30 mb-5 mr-7">
-                <CompanyOverview />
-                <TeamPerformance />
-            </div>
-            <div className="flex gap-6 w-full">
-                <Employees />
-                <PieCharts />
+            </div> */}
+            <div className="flex flex-col gap-6">
+                <div className="flex border rounded-xl h-[345px] px-7 mb-5 gap-6">
+                    <CompanyOverview />
+                    <TeamPerformance />
+                </div>
+                <div className="flex gap-6 w-full">
+                    <Employees />
+                    <PieCharts />
+                </div>
             </div>
         </>
     )

@@ -6,7 +6,7 @@ export interface AuthUser {
 }
 
 export interface UserData {
-
+    _id: string;
     address: string;
     createdAt: string
     datOfJoining: string
@@ -59,3 +59,14 @@ export const SearchedUser = atom<UserData[]>({
     key: "searchedUser",
     default: []
 })
+
+export interface Employee {
+    checkInTime: string;
+    checkOutTime: string;
+    date: string;
+    status: string;
+    userDetails: {
+        username: string;
+        email: string;
+    };
+}

@@ -1,33 +1,52 @@
-
+import { useState } from "react";
 import HoliTable from "../../components/ui/Holidays/HoliTable";
+import CreateHolidayModal from "../../components/ui/Modals/AddHolidayModal";
 
 export default function Holidays() {
+    const [open, setOpen] = useState(false);
+
+    function handleClose() {
+        setOpen(e => !e);
+    }
+
+    function handleOpen() {
+        setOpen(e => !e);
+    }
     return (
         <>
-            <div className="w-12/12 mr-7 h-full rounded-[10px] p-[22px] flex flex-col gap-[22px]">
-                <div className="w-full flex justify-between ">
-                    <div className="flex items-center px-3 border rounded-[10px] w-4/12 my-auto h-[50px] gap-[10px]">
-                        <img className="w-6 h-6" src="/src/assets/dashboard/Navbar/search.svg" alt="" />
-                        <input className="w-full outline-none" type="text" placeholder="Search" />
+            <div className="w-full h-full rounded-[10px] flex flex-col gap-6 ">
+
+                <div className="w-full flex flex-wrap justify-between items-center gap-4">
+
+                    <div className="flex items-center px-4 border rounded-[10px] w-full md:w-4/12 h-[50px] gap-3 bg-white">
+                        <img className="w-6 h-6" src="/src/assets/dashboard/Navbar/search.svg" alt="Search Icon" />
+                        <input
+                            className="w-full outline-none text-sm"
+                            type="text"
+                            placeholder="Search"
+                        />
                     </div>
-                    <div className="flex w-5/12 justify-around h-[50px] gap-5">
-                        <div className="cursor-pointer bg-purple-primary-500 rounded-[10px] text-white flex gap-[10px] p-5 h-25 w-[220px] items-center ">
-                            <img className="h-6 w-6" src="/src/assets/plus.svg" alt="" />
-                            <p className="font-light text-[16px] leading-[24px] ">Add New Lead</p>
+
+                    <div className="flex w-full md:w-6/12 justify-between gap-4">
+                        <div onClick={handleOpen} className="cursor-pointer bg-purple-primary-500 rounded-[10px] text-white flex gap-3 p-4 h-[50px] w-full md:w-[220px] items-center">
+                            <img className="h-6 w-6" src="/src/assets/plus.svg" alt="Add Icon" />
+                            <p className="font-light text-sm leading-[24px]">Add New Holiday</p>
                         </div>
-                        <div className="cursor-pointer border bg-white rounded-[10px] text-black flex gap-[10px] p-5 h-25 w-[180px] items-center ">
-                            <img className="h-6 w-6" src="/src/assets/plus.svg" alt="" />
-                            <p className="font-light text-[16px] leading-[24px] ">Upload Bulk</p>
+                        <div className="cursor-pointer border bg-white rounded-[10px] text-black flex gap-3 p-4 h-[50px] w-full md:w-[180px] items-center">
+                            <img className="h-6 w-6" src="/src/assets/plus.svg" alt="Upload Icon" />
+                            <p className="font-light text-sm leading-[24px]">Upload Bulk</p>
                         </div>
-                        <div className="cursor-pointer border rounded-[10px]  flex gap-[10px] justify-center py-2 h-25 w-[60px] items-center">
-                            <img className="w-6 h-6" src="/src/assets/filter.svg" alt="" />
+                        <div className="cursor-pointer border rounded-[10px] flex justify-center items-center h-[50px] w-[60px] bg-white">
+                            <img className="w-6 h-6" src="/src/assets/filter.svg" alt="Filter Icon" />
                         </div>
                     </div>
                 </div>
-                <div>
+
+                <div className="w-full h-full border rounded-lg flex flex-col gap-6 bg-white shadow-md">
                     <HoliTable headings={["Date", "Day", "Holiday Name"]} />
                 </div>
             </div>
+            {open ? <CreateHolidayModal onClose={handleClose} /> : ""}
         </>
-    )
+    );
 }

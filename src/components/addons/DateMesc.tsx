@@ -9,6 +9,8 @@ export function getDateOnly(dateString: string): string {
 }
 
 export function getTimeOnly(dateString: string): string {
-    const date = new Date(dateString);
-    return date.toLocaleTimeString("en-IN")
+    const date = new Date(dateString); // Convert the string to a Date object
+    const hours = date.getUTCHours().toString().padStart(2, "0"); // Get hours in UTC
+    const minutes = date.getUTCMinutes().toString().padStart(2, "0"); // Get minutes in UTC
+    return `${hours}:${minutes}`; // Return time in "HH:MM" format
 }
