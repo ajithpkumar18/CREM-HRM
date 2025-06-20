@@ -2,48 +2,29 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const AddBreak = () => {
-    const [breakStartTime, setBreakStartTime] = useState("");
-    const [breakEndTime, setBreakEndTime] = useState("");
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
 
     interface BreakData {
-        breakStartTime: string;
-        breakEndTime: string;
+        breakStartTime?: string;
+        breakEndTime?: string;
     }
 
     interface ApiResponse {
         message: string;
     }
 
-    const createFullDate = (time: string): string => {
-        const currentDate = new Date();
-        const [hours, minutes] = time.split(":").map(Number);
-
-        // Set the hours and minutes to the current date
-        currentDate.setHours(hours, minutes, 0, 0);
-
-        return currentDate.toISOString(); // Convert to ISO string for backend compatibility
-    };
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        if (!breakStartTime || !breakEndTime) {
-            setError("Both break start time and end time are required.");
-            return;
-        }
-
+    const sendCurrentTime = async (type: "start" | "end") => {
         try {
-            const fullBreakStartTime = createFullDate(breakStartTime);
-            const fullBreakEndTime = createFullDate(breakEndTime);
+            const currentTime = new Date().toISOString();
+            const payload: BreakData =
+                type === "start"
+                    ? { breakStartTime: currentTime }
+                    : { breakEndTime: currentTime };
 
             const response = await axios.post<ApiResponse>(
                 "http://localhost:3001/hr/attendance/break",
-                {
-                    breakStartTime: fullBreakStartTime,
-                    breakEndTime: fullBreakEndTime,
-                } as BreakData,
+                payload,
                 {
                     withCredentials: true,
                 }
@@ -52,38 +33,29 @@ const AddBreak = () => {
             setMessage(response.data.message);
             setError("");
         } catch (err) {
-            console.error("Error adding break:", err);
-            setError((err as any).response?.data?.message || "Error adding break");
+            console.error(`Error sending ${type} time:`, err);
+            setError((err as any).response?.data?.message || `Error sending ${type} time`);
             setMessage("");
         }
     };
 
     return (
-        <div className="border py-5 bg-slate-400 px-4 text-white rounded-xl mb- w-full">
-            <h1 className="font-bold text-2xl text-ellipsis text-center">Add Break</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="flex gap-5 py-5">
-                    <label htmlFor="breakStartTime">Break Start Time:</label>
-                    <input
-                        className="bg-slate-300 rounded-md"
-                        type="time"
-                        id="breakStartTime"
-                        value={breakStartTime}
-                        onChange={(e) => setBreakStartTime(e.target.value)}
-                    />
-                </div>
-                <div className="flex gap-6 pb-5">
-                    <label htmlFor="breakEndTime">Break End Time:</label>
-                    <input
-                        className="bg-slate-300 rounded-md"
-                        type="time"
-                        id="breakEndTime"
-                        value={breakEndTime}
-                        onChange={(e) => setBreakEndTime(e.target.value)}
-                    />
-                </div>
-                <button type="submit" className="bg-gray-300 p-3 rounded-lg w-full">Add Break</button>
-            </form>
+        <div className="border py-5 bg-slate-400 px-4 text-white rounded-xl w-full">
+            <h1 className="font-bold text-2xl text-center">Add Break</h1>
+            <div className="flex flex-col gap-4 py-5">
+                <button
+                    onClick={() => sendCurrentTime("start")}
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg"
+                >
+                    Start Break
+                </button>
+                <button
+                    onClick={() => sendCurrentTime("end")}
+                    className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg"
+                >
+                    End Break
+                </button>
+            </div>
 
             {message && <p className="text-purple-primary-500 text-center pt-2 font-semibold">{message}</p>}
             {error && <p className="text-red-500 text-center pt-2 font-semibold">{error}</p>}

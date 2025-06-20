@@ -139,8 +139,13 @@ export default function AllLeads() {
                 )}
             </div>
 
-
-            {showModal && <CreateLeadModal onClose={handleCloseModal} />}
+            {showModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
+                    <div className="relative w-full max-w-2xl p-4">
+                        <CreateLeadModal onClose={handleCloseModal} />
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

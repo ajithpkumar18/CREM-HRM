@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router";
+import { replace, useLocation, useNavigate } from "react-router";
 import { SidebarItem } from "./SideBarItem";
 import axios from "axios";
 import AddBreak from "../AddBreak";
@@ -114,10 +114,10 @@ export default function Sidebar({ className }: SidebarProps) {
                 { withCredentials: true }
             );
             alert("Logged out successfully!");
-            // Clear any local storage or session data if necessary
+
             localStorage.removeItem("authToken");
-            // Redirect to the login page
-            navigate("/login");
+
+            navigate("/signin", { replace: true, flushSync: true });
         } catch (err: any) {
             console.error("Error during logout:", err);
             alert(err.response?.data?.message || "Failed to log out");

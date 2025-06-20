@@ -7,7 +7,6 @@ import TeamPerformance from "../../components/ui/Dashboard/TeamPerformance";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { userData } from "../../data/atom";
-import AddBreak from "../../components/ui/AddBreak";
 
 export default function Dashboard() {
     const [user, setUser] = useRecoilState(userData);
@@ -28,9 +27,6 @@ export default function Dashboard() {
 
     return (
         <>
-            {/* <div>
-                <AddBreak />
-            </div> */}
             <div className="flex flex-col gap-6">
                 <div className="flex border rounded-xl h-[345px] px-7 mb-5 gap-6">
                     <CompanyOverview />

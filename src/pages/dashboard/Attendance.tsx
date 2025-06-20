@@ -59,7 +59,7 @@ export default function Attendance() {
                     {
                         date,
                         checkInTime: newTime,
-                        employeeId: employee[selectedTimeIndex].userDetails.email, // Assuming email is unique
+                        employeeId: employee[selectedTimeIndex].userDetails.email,
                     },
                     { withCredentials: true }
                 );

@@ -10,15 +10,16 @@ export default function AllEmployees() {
     const [showModal, setShowModal] = useState(false);
     const [query, setQuery] = useState('');
     const [employees, setEmployees] = useRecoilState(allEmployees);
-    const headings = ["Employee Name", "Employee ID", "Department", "Designation", "Type", "Status", "Action"]
+    const headings = ["Employee Name", "Employee ID", "Department", "Designation", "Type", "Status", "Action"];
+
     const handleSearch = async () => {
-        console.log(query)
+        console.log(query);
         try {
-            const response = await axios.get(`http://localhost:3001/hr/employee/search?q=${query}`,
-                { withCredentials: true }
-            );
+            const response = await axios.get(`http://localhost:3001/hr/employee/search?q=${query}`, {
+                withCredentials: true,
+            });
             setEmployees(response.data.data);
-            console.log(response.data)
+            console.log(response.data);
         } catch (error) {
             console.error('Error fetching results:', error);
         }
@@ -26,10 +27,11 @@ export default function AllEmployees() {
 
     const handleOpenModal = () => {
         setShowModal(true);
-    }
+    };
+
     const handleCloseModal = () => {
         setShowModal(false);
-    }
+    };
 
     useEffect(() => {
         const fetchEmployees = async () => {
@@ -47,7 +49,6 @@ export default function AllEmployees() {
         fetchEmployees();
     }, [setEmployees]);
 
-
     const handleDelete = async (id: string) => {
         const confirmDelete = confirm("Are you sure you want to delete this employee?");
         if (confirmDelete) {
@@ -63,12 +64,11 @@ export default function AllEmployees() {
             }
         }
     };
+
     return (
         <>
             <div className="w-full h-full rounded-[10px] flex flex-col gap-6">
-
                 <div className="w-full flex flex-wrap justify-between items-center gap-4">
-
                     <div className="flex items-center px-4 border rounded-[10px] w-full md:w-4/12 h-[50px] gap-3">
                         <img className="w-6 h-6" src="/src/assets/dashboard/Navbar/search.svg" alt="Search Icon" />
                         <input
@@ -172,8 +172,12 @@ export default function AllEmployees() {
                     </div>
                 </div>
 
-                {showModal && <AddEmployeeModal onClose={handleCloseModal} />}
+                {showModal && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" >
+                        <AddEmployeeModal onClose={handleCloseModal} />
+                    </div>
+                )}
             </div>
         </>
-    )
+    );
 }

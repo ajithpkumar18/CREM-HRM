@@ -27,7 +27,6 @@ const CreateLeadModal: React.FC<CreateLeadModalProps> = ({ onClose }) => {
                 const response = await axios.get('http://localhost:3001/hr/employees', {
                     withCredentials: true,
                 });
-                console.log(response.data)
                 setEmployees(response.data.map((emp: any) => ({ id: emp.companyID, fullName: emp.fullName })));
             } catch (error) {
                 console.error('Error fetching employees:', error);
@@ -45,11 +44,8 @@ const CreateLeadModal: React.FC<CreateLeadModalProps> = ({ onClose }) => {
         }));
 
         if (name === 'assignedTo') {
-
-            const filtered = employees.filter((emp) => {
-                console.log(emp.fullName);
-                return emp.fullName.toLowerCase().includes(value.toLowerCase());
-            }
+            const filtered = employees.filter((emp) =>
+                emp.fullName.toLowerCase().includes(value.toLowerCase())
             );
             setFilteredEmployees(filtered);
             setShowSuggestions(true);
@@ -61,8 +57,6 @@ const CreateLeadModal: React.FC<CreateLeadModalProps> = ({ onClose }) => {
             ...prev,
             assignedTo: employee.id,
         }));
-        console.log(employee.id);
-
         setShowSuggestions(false);
     };
 
@@ -72,7 +66,6 @@ const CreateLeadModal: React.FC<CreateLeadModalProps> = ({ onClose }) => {
                 withCredentials: true,
             });
             alert('Lead created successfully!');
-            console.log('Response:', response.data);
             onClose();
         } catch (error) {
             console.error('Error creating lead:', error);
@@ -81,10 +74,34 @@ const CreateLeadModal: React.FC<CreateLeadModalProps> = ({ onClose }) => {
     };
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center z-50 overflow-scroll">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-                <h2 className="text-xl font-semibold mb-4 text-center">Create New Lead</h2>
-                <div className="space-y-4">
+        <div className="fixed inset-0 pt-32 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
+            <div className="relative w-full max-w-2xl bg-white rounded-lg shadow-lg p-6">
+                <div className="flex items-center justify-between border-b pb-4">
+                    <h2 className="text-xl font-semibold text-gray-900">Create New Lead</h2>
+                    <button
+                        type="button"
+                        className="text-gray-400 hover:text-gray-900"
+                        onClick={onClose}
+                    >
+                        <svg
+                            className="w-6 h-6"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M6 18L18 6M6 6l12 12"
+                            />
+                        </svg>
+                    </button>
+                </div>
+
+
+                <div className="space-y-4 mt-4">
                     <div>
                         <label htmlFor="contactPerson" className="block text-sm font-medium text-gray-700">
                             Contact Person
@@ -94,7 +111,7 @@ const CreateLeadModal: React.FC<CreateLeadModalProps> = ({ onClose }) => {
                             id="contactPerson"
                             name="contactPerson"
                             value={lead.contactPerson}
-                            onChange={(e) => handleChange({ target: { name: e.target.name, value: e.target.value } } as React.ChangeEvent<HTMLInputElement>)}
+                            onChange={handleChange}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                             placeholder="Enter Contact Person"
                         />
@@ -108,7 +125,7 @@ const CreateLeadModal: React.FC<CreateLeadModalProps> = ({ onClose }) => {
                             id="contactNumber"
                             name="contactNumber"
                             value={lead.contactNumber}
-                            onChange={(e) => handleChange(e as React.ChangeEvent<HTMLInputElement>)}
+                            onChange={handleChange}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                             placeholder="Enter Contact Number"
                         />
@@ -118,13 +135,13 @@ const CreateLeadModal: React.FC<CreateLeadModalProps> = ({ onClose }) => {
                             Email
                         </label>
                         <input
-                            type="text"
+                            type="email"
                             id="email"
                             name="email"
                             value={lead.email}
                             onChange={handleChange}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-                            placeholder="Enter Contact Number"
+                            placeholder="Enter Email"
                         />
                     </div>
                     <div>
@@ -179,7 +196,7 @@ const CreateLeadModal: React.FC<CreateLeadModalProps> = ({ onClose }) => {
                             name="assignedTo"
                             value={lead.assignedTo}
                             onChange={handleChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-white"
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                             placeholder="Type employee name"
                             autoComplete="off"
                             onFocus={() => setShowSuggestions(true)}
@@ -207,7 +224,7 @@ const CreateLeadModal: React.FC<CreateLeadModalProps> = ({ onClose }) => {
                             name="status"
                             value={lead.status}
                             onChange={handleChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-white"
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
                         >
                             <option value="" disabled>
                                 Select Status
@@ -217,6 +234,7 @@ const CreateLeadModal: React.FC<CreateLeadModalProps> = ({ onClose }) => {
                         </select>
                     </div>
                 </div>
+
                 <div className="mt-6 flex justify-end space-x-4">
                     <button
                         type="button"
@@ -228,10 +246,9 @@ const CreateLeadModal: React.FC<CreateLeadModalProps> = ({ onClose }) => {
                     <button
                         type="button"
                         onClick={handleSubmit}
-                        className="px-4 py-2 bg-purple-primary-500 text-white rounded-md flex items-center space-x-2 hover:bg-purple-primary-600"
+                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
                     >
-                        <img src="/src/assets/plus.svg" alt="Add" className="w-5 h-5" />
-                        <span>Add Lead</span>
+                        Submit
                     </button>
                 </div>
             </div>
