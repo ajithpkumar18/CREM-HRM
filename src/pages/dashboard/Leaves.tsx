@@ -28,10 +28,10 @@ const Leaves: React.FC = () => {
   const [leaves, setLeaves] = useState<Leave[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredLeaves, setFilteredLeaves] = useState<Leave[]>([]);
+  const [showDateFilter, setShowDateFilter] = useState(false);
+  const [dateFilter, setDateFilter] = useState({ start: "", end: "" });
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClose = () => setOpen(false);
 
   const fetchLeaves = async () => {
     try {
@@ -49,19 +49,40 @@ const Leaves: React.FC = () => {
     fetchLeaves();
   }, []);
 
-
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    if (query.trim() === "") {
-      setFilteredLeaves(leaves);
-    } else {
-      const filtered = leaves.filter((leave) =>
+    filterLeaves(query, dateFilter.start, dateFilter.end);
+  };
+
+  const handleDateFilter = (start: string, end: string) => {
+    setDateFilter({ start, end });
+    filterLeaves(searchQuery, start, end);
+  };
+
+
+  const filterLeaves = (query: string, start: string, end: string) => {
+    let filtered = leaves;
+
+    if (query.trim() !== "") {
+      filtered = filtered.filter((leave) =>
         leave.userDetails.fullName.toLowerCase().includes(query.toLowerCase()) ||
         leave.companyID.toLowerCase().includes(query.toLowerCase()) ||
         leave.leaveType.toLowerCase().includes(query.toLowerCase())
       );
-      setFilteredLeaves(filtered);
     }
+
+    if (start && end) {
+      filtered = filtered.filter((leave) => {
+        const leaveStart = leave.startDate.slice(0, 10);
+        const leaveEnd = leave.endDate.slice(0, 10);
+        return (
+          (leaveStart >= start && leaveStart <= end) ||
+          (leaveEnd >= start && leaveEnd <= end)
+        );
+      });
+    }
+
+    setFilteredLeaves(filtered);
   };
 
   return (
@@ -92,6 +113,49 @@ const Leaves: React.FC = () => {
               >
                 Add Leave
               </button>
+              <div
+                className="cursor-pointer border rounded-[10px] flex justify-center items-center h-[50px] w-[60px] bg-white relative"
+                onClick={() => setShowDateFilter((prev) => !prev)}
+                title="Filter by date"
+              >
+                <img className="w-6 h-6" src="/src/assets/filter.svg" alt="Filter Icon" />
+                {showDateFilter && (
+                  <div className="absolute top-14 right-0 bg-white border rounded-lg shadow-lg p-4 z-50 min-w-[220px]">
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs text-gray-700">Start Date</label>
+                      <input
+                        type="date"
+                        value={dateFilter.start}
+                        onChange={e => handleDateFilter(e.target.value, dateFilter.end)}
+                        className="border rounded px-2 py-1"
+                      />
+                      <label className="text-xs text-gray-700">End Date</label>
+                      <input
+                        type="date"
+                        value={dateFilter.end}
+                        onChange={e => handleDateFilter(dateFilter.start, e.target.value)}
+                        className="border rounded px-2 py-1"
+                      />
+                      <button
+                        className="mt-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+                        onClick={() => setShowDateFilter(false)}
+                      >
+                        Apply
+                      </button>
+                      <button
+                        className="mt-1 px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+                        onClick={() => {
+                          setDateFilter({ start: "", end: "" });
+                          filterLeaves(searchQuery, "", "");
+                          setShowDateFilter(false);
+                        }}
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
@@ -99,48 +163,13 @@ const Leaves: React.FC = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Employee Name
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Employee ID
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Department
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Designation
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Start Date
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Leave Type
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    End Date
-                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee Name</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employee ID</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Designation</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Start Date</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Leave Type</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">End Date</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">

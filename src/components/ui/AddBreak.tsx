@@ -45,13 +45,13 @@ const AddBreak = () => {
             <div className="flex flex-col gap-4 py-5">
                 <button
                     onClick={() => sendCurrentTime("start")}
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg"
+                    className="bg-slate-700 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg"
                 >
                     Start Break
                 </button>
                 <button
                     onClick={() => sendCurrentTime("end")}
-                    className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg"
+                    className="bg-slate-950 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg"
                 >
                     End Break
                 </button>
