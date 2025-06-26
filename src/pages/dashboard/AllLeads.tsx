@@ -2,6 +2,7 @@ import Leads from "../../components/ui/AllLeads/Leads";
 import CreateLeadModal from "../../components/ui/Modals/AddLeadModal";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import * as XLSX from "xlsx";
 
 export default function AllLeads() {
     const [showModal, setShowModal] = useState(false);
@@ -74,6 +75,41 @@ export default function AllLeads() {
         setShowModal(false);
     };
 
+
+    const handleBulkUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        try {
+            const data = await file.arrayBuffer();
+            const workbook = XLSX.read(data, { type: "array" });
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
+            let jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+
+            jsonData = jsonData.map((row: any) => {
+                const trimmedRow: any = {};
+                Object.keys(row).forEach((key) => {
+                    trimmedRow[key.trim()] = row[key];
+                });
+                return trimmedRow;
+            });
+
+            console.log(jsonData)
+
+            await axios.post("http://localhost:3001/hr/leads/bulk-upload", {
+                leads: jsonData
+            }, {
+                withCredentials: true,
+            });
+            alert("Bulk leads uploaded successfully!");
+            fetchLeads();
+        } catch (err: any) {
+            console.error("Bulk upload error:", err);
+            alert("Failed to upload bulk leads. Please check your file format.");
+        }
+    };
+
     return (
         <div className="w-full h-full rounded-[10px] flex flex-col gap-6 mt-5">
 
@@ -107,9 +143,16 @@ export default function AllLeads() {
                             Add New Lead
                         </button>
                     </div>
-                    <div className="cursor-pointer border rounded-[10px] flex gap-3 p-4 h-[50px] w-full md:w-[180px] items-center bg-white">
+                    <div className="cursor-pointer border rounded-[10px] flex gap-3 p-4 h-[50px] w-full md:w-[180px] items-center bg-white relative">
                         <img className="h-6 w-6" src="/src/assets/plus.svg" alt="Upload Icon" />
                         <p className="font-light text-sm leading-[24px] text-dark-500">Upload Bulk</p>
+                        <input
+                            type="file"
+                            accept=".xlsx,.xls,.csv"
+                            className="absolute inset-0 opacity-0 cursor-pointer"
+                            title="Upload Excel or CSV"
+                            onChange={handleBulkUpload}
+                        />
                     </div>
                     <div className="cursor-pointer border rounded-[10px] flex justify-center items-center h-[50px] w-[60px] bg-white">
                         <img className="w-6 h-6" src="/src/assets/filter.svg" alt="Filter Icon" />

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Dropdown from "../Common/Dropdown";
 import Pagination from "../Common/Pagination";
 import axios from "axios";

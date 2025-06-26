@@ -17,10 +17,9 @@ import Settings from './pages/dashboard/Settings'
 import SignInPage from './pages/SignIn'
 import { RecoilRoot } from 'recoil'
 import { RedirectIfLoggedIn, RequireAuth } from './components/ProtectionWarppers/Auth'
-import Sidebar from './components/ui/Sidebar/Sidebar'
-import Navbar from './components/ui/Navbar'
 import Layout from './pages/Layout'
 import NotFound from './pages/NotFound'
+import Candidates from './pages/dashboard/Candidates'
 
 function App() {
 
@@ -101,6 +100,9 @@ function App() {
             // <RequireAuth>
             <Leaves />
             // </RequireAuth>
+          } />
+          <Route path='/candidates' element={
+            <Candidates />
           } />
           <Route path="*" element={<NotFound />} />
         </Route>

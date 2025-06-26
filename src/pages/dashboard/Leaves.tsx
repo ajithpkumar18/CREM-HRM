@@ -30,6 +30,7 @@ const Leaves: React.FC = () => {
   const [filteredLeaves, setFilteredLeaves] = useState<Leave[]>([]);
   const [showDateFilter, setShowDateFilter] = useState(false);
   const [dateFilter, setDateFilter] = useState({ start: "", end: "" });
+  const [pendingDateFilter, setPendingDateFilter] = useState({ start: "", end: "" });
 
   const handleClose = () => setOpen(false);
 
@@ -54,11 +55,10 @@ const Leaves: React.FC = () => {
     filterLeaves(query, dateFilter.start, dateFilter.end);
   };
 
-  const handleDateFilter = (start: string, end: string) => {
-    setDateFilter({ start, end });
-    filterLeaves(searchQuery, start, end);
+  const handleOpenDateFilter = () => {
+    setPendingDateFilter(dateFilter);
+    setShowDateFilter((prev) => !prev);
   };
-
 
   const filterLeaves = (query: string, start: string, end: string) => {
     let filtered = leaves;
@@ -74,10 +74,8 @@ const Leaves: React.FC = () => {
     if (start && end) {
       filtered = filtered.filter((leave) => {
         const leaveStart = leave.startDate.slice(0, 10);
-        const leaveEnd = leave.endDate.slice(0, 10);
         return (
-          (leaveStart >= start && leaveStart <= end) ||
-          (leaveEnd >= start && leaveEnd <= end)
+          (leaveStart >= start && leaveStart <= end)
         );
       });
     }
@@ -87,7 +85,7 @@ const Leaves: React.FC = () => {
 
   return (
     <div>
-      <div className="flex-1 relative overflow-x-hidden overflow-y-auto mt-10">
+      <div className="flex-1 relative overflow-x-hidden mt-10">
         <div className="container mx-auto">
           <div className="flex items-center justify-between mb-6">
             <div className="relative flex items-center gap-3">
@@ -114,37 +112,45 @@ const Leaves: React.FC = () => {
                 Add Leave
               </button>
               <div
-                className="cursor-pointer border rounded-[10px] flex justify-center items-center h-[50px] w-[60px] bg-white relative"
-                onClick={() => setShowDateFilter((prev) => !prev)}
+                className=" cursor-pointer border rounded-[10px] flex justify-center items-center h-[50px] w-[60px] bg-white relative"
+                onClick={handleOpenDateFilter}
                 title="Filter by date"
               >
                 <img className="w-6 h-6" src="/src/assets/filter.svg" alt="Filter Icon" />
                 {showDateFilter && (
-                  <div className="absolute top-14 right-0 bg-white border rounded-lg shadow-lg p-4 z-50 min-w-[220px]">
+                  <div
+                    className="z-50 fixed top-56 right-0 bg-white border rounded-lg shadow-lg p-4 min-w-[220px] min-h-[220px]"
+                    onClick={e => e.stopPropagation()}
+                  >
                     <div className="flex flex-col gap-2">
                       <label className="text-xs text-gray-700">Start Date</label>
                       <input
                         type="date"
-                        value={dateFilter.start}
-                        onChange={e => handleDateFilter(e.target.value, dateFilter.end)}
+                        value={pendingDateFilter.start}
+                        onChange={e => setPendingDateFilter({ ...pendingDateFilter, start: e.target.value })}
                         className="border rounded px-2 py-1"
                       />
                       <label className="text-xs text-gray-700">End Date</label>
                       <input
                         type="date"
-                        value={dateFilter.end}
-                        onChange={e => handleDateFilter(dateFilter.start, e.target.value)}
+                        value={pendingDateFilter.end}
+                        onChange={e => setPendingDateFilter({ ...pendingDateFilter, end: e.target.value })}
                         className="border rounded px-2 py-1"
                       />
                       <button
                         className="mt-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
-                        onClick={() => setShowDateFilter(false)}
+                        onClick={() => {
+                          setDateFilter(pendingDateFilter);
+                          filterLeaves(searchQuery, pendingDateFilter.start, pendingDateFilter.end);
+                          setShowDateFilter(false);
+                        }}
                       >
                         Apply
                       </button>
                       <button
                         className="mt-1 px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
                         onClick={() => {
+                          setPendingDateFilter({ start: "", end: "" });
                           setDateFilter({ start: "", end: "" });
                           filterLeaves(searchQuery, "", "");
                           setShowDateFilter(false);
